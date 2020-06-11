@@ -129,7 +129,7 @@ light-bootstrap-dashboard-react
     │   └── UserCard
     │       └── UserCard.jsx
     ├── layouts
-    │   └── Admin.jsx
+    │   └── layout.jsx
     ├── variables
     │   └── Variables.jsx
     └── views
