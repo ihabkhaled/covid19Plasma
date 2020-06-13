@@ -83,12 +83,11 @@ export default function Donor() {
   const validateForm = () => {
     let checkItems = [];
     for (const theItem in checkedItems) {
-      if(checkedItems[theItem] === true)
-      {
+      if (checkedItems[theItem] === true) {
         checkItems.push(theItem);
       }
     }
-    
+
     console.log("checkedItems: ", checkItems.join(","));
     // return email.length > 0 && name.length > 8 && mobile.length > 10 && age && location && bloodType;
     // console.log(email + name + mobile + age + location + bloodType + donationDate + recoveryDate + address);
@@ -142,51 +141,63 @@ export default function Donor() {
                     title="Donor"
                     content={
                       <form onSubmit={handleSubmit}>
-                        <FormGroup controlId="name" bsSize="large">
-                          <ControlLabel className={style.label}>Full Name</ControlLabel>
-                          <FormControl
-                            autoFocus
-                            type="text"
-                            value={name}
-                            name="Name"
-                            onChange={e => setName(e.target.value)}
-                            required
-                          />
-                        </FormGroup>
+                        <Row>
+                          <Col md={6}>
+                            <FormGroup controlId="name" bsSize="large">
+                              <ControlLabel className={style.label}>Full Name</ControlLabel>
+                              <FormControl
+                                autoFocus
+                                type="text"
+                                value={name}
+                                name="Name"
+                                onChange={e => setName(e.target.value)}
+                                required
+                              />
+                            </FormGroup>
+                          </Col>
 
-                        <FormGroup controlId="email" bsSize="large">
-                          <ControlLabel className={style.label}>Email</ControlLabel>
-                          <FormControl
-                            autoFocus
-                            type="email"
-                            value={email}
-                            name="email"
-                            onChange={e => setEmail(e.target.value)}
-                            required
-                          />
-                        </FormGroup>
+                          <Col md={6}>
+                            <FormGroup controlId="email" bsSize="large">
+                              <ControlLabel className={style.label}>Email</ControlLabel>
+                              <FormControl
+                                autoFocus
+                                type="email"
+                                value={email}
+                                name="email"
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
 
-                        <FormGroup controlId="text" bsSize="large">
-                          <ControlLabel className={style.label}>Mobile</ControlLabel>
-                          <FormControl
-                            value={mobile}
-                            onChange={e => setMobile(e.target.value)}
-                            type="text"
-                            name="mobile"
-                            required
-                          />
-                        </FormGroup>
+                        <Row>
+                          <Col md={6}>
+                            <FormGroup controlId="text" bsSize="large">
+                              <ControlLabel className={style.label}>Mobile</ControlLabel>
+                              <FormControl
+                                value={mobile}
+                                onChange={e => setMobile(e.target.value)}
+                                type="text"
+                                name="mobile"
+                                required
+                              />
+                            </FormGroup>
+                          </Col>
 
-                        <FormGroup controlId="text" bsSize="large">
-                          <ControlLabel className={style.label}>Age</ControlLabel>
-                          <FormControl
-                            value={age}
-                            onChange={e => setAge(e.target.value)}
-                            type="number"
-                            name="age"
-                            required
-                          />
-                        </FormGroup>
+                          <Col md={6}>
+                            <FormGroup controlId="text" bsSize="large">
+                              <ControlLabel className={style.label}>Age</ControlLabel>
+                              <FormControl
+                                value={age}
+                                onChange={e => setAge(e.target.value)}
+                                type="number"
+                                name="age"
+                                required
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
 
                         <FormGroup controlId="address" bsSize="large">
                           <ControlLabel className={style.label}>Address</ControlLabel>
@@ -252,7 +263,7 @@ export default function Donor() {
                         </FormGroup>
 
                         <FormGroup className={style.radioButtons} controlId="text" bsSize="large">
-                          <ControlLabel className={style.label}>Diseases</ControlLabel>
+                          <ControlLabel className={style.label}>Chronic Diseases</ControlLabel>
                           {chronicDiseases.map((val) => {
                             return (
                               <Checkbox
