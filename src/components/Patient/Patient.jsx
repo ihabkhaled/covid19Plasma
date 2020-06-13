@@ -10,12 +10,12 @@ import Maps from "../../views/Maps";
 import style from "./Patient.module.scss";
 import "../../assets/css/maps.css";
 import { API } from "../../variables/APIs.js";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import showNotification from '../../variables/Notifications';
 
 export default function Patient() {
 
     useEffect(() => {
+        showNotification('success','Data Saved Successfully!');
         submitFormData();
       }, []);
 
@@ -41,7 +41,7 @@ export default function Patient() {
 
     //Validations here
     const validateForm = () => {
-        toast.success("Wow so easy !");
+        showNotification('success','Data Saved Successfully!');
         // return email.length > 0 && name.length > 8 && mobile.length > 10 && age && location && bloodType;
         // console.log(email + name + mobile + age + location + bloodType + donationDate + recoveryDate + address);
         return true;
@@ -63,7 +63,6 @@ export default function Patient() {
 
     return (
         <div className="content">
-            <ToastContainer />
             <br></br>
             <Grid>
                 <Row>

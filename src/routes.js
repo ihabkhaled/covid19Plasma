@@ -1,6 +1,5 @@
 
 // import Dashboard from "views/Dashboard.jsx";
-import TableList from "views/TableList.jsx";
 import Donor from "components/Donor/DonorForm.jsx";
 import Patient from "components/Patient/Patient.jsx";
 
@@ -21,13 +20,6 @@ const dashboardRoutes = [
     layout: "",
     // ignore:true
   },
-  // {
-  //   path: "/table",
-  //   name: "Table List",
-  //   icon: "pe-7s-note2",
-  //   component: TableList,
-  //   layout: ""
-  // },
 ];
 
 export default dashboardRoutes;

@@ -12,6 +12,8 @@ import routes from "routes.js";
 import Router from "Router.js";
 
 import image from "assets/img/sidebar-4.jpg";
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class layout extends Component {
   constructor(props) {
@@ -19,8 +21,7 @@ class layout extends Component {
     this.state = {
       image: image,
       color: "black",
-      hasImage: true,
-      fixedClasses: "dropdown show-dropdown open"
+      hasImage: true
     };
   }
 
@@ -59,7 +60,7 @@ class layout extends Component {
   render() {
     return (
       <div className="wrapper">
-        <NotificationSystem ref="notificationSystem" style={style} />
+        <NotificationContainer/>
         <Sidebar {...this.props} routes={routes} image={this.state.image}
         color={this.state.color}
         hasImage={this.state.hasImage}/>
