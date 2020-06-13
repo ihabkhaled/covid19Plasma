@@ -33,7 +33,7 @@ export default function Donor() {
   const [donationDate, setDonationDate] = useState("");
   const [recoveryDate, setRecoveryDate] = useState("");
   const [bloodType, setBloodType] = useState("");
-  const [diseases, setDiseases] = useState("");
+  const [checkedItems, setCheckedItems] = useState({});
 
   //Modals
   const [open, setOpen] = useState(false);
@@ -66,31 +66,38 @@ export default function Donor() {
   };
 
   const handleDisease = event => {
-    // const target = event.target;
-    // console.log(event);
-  }
-
-  function validateForm() {
-    // return email.length > 0 && name.length > 8 && mobile.length > 10 && age && location && bloodType;
-    console.log(email + name + mobile + age + location + bloodType + donationDate + recoveryDate + address);
-    return true;
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(event);
+    setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   }
 
   const handleDisagree = () => {
     setOpen(false);
     setAgree(false);
-    // setDisagree(false);
   };
 
   const handleAgree = () => {
     setOpen(false);
     setAgree(true);
   };
+
+  //Validations here
+  const validateForm = () => {
+    let checkItems = [];
+    for (const theItem in checkedItems) {
+      if(checkedItems[theItem] === true)
+      {
+        checkItems.push(theItem);
+      }
+    }
+    
+    console.log("checkedItems: ", checkItems.join(","));
+    // return email.length > 0 && name.length > 8 && mobile.length > 10 && age && location && bloodType;
+    // console.log(email + name + mobile + age + location + bloodType + donationDate + recoveryDate + address);
+    return true;
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  }
 
   return (
     <div>
@@ -107,8 +114,12 @@ export default function Donor() {
             <li>Have tested positive for hepatitis B or hepatitis C, lived with or had sexual contact in the past 12 months with anyone who has hepatitis B or symptomatic hepatitis C.</li>
             <li>Have ever had a positive test for the AIDS virus.</li>
             <li>Have used injectable drugs, including anabolic steroids, unless prescribed by a physician in the past 3 months.</li>
-            <br></br>
-            <p>Note: Platelet donors may donate once every seven days, not to exceed six times in any eight-week period</p>
+
+            <h4><b>Important Notes</b></h4>
+            <li>Platelet donors may donate once every seven days, not to exceed six times in any eight-week period</li>
+            <li>COVID-19 convalescent plasma must only be collected from recovered individuals if they are eligible to donate blood.</li>
+            <li>Individuals must have had a prior diagnosis of COVID-19 documented by a laboratory test and meet other donor criteria.</li>
+            <li>Individuals must have complete resolution of symptoms for at least 14 days prior to donation.</li>
           </DialogContentText>
         </DialogContent>
         <DialogActions className={style.contentDialog + ' ' + style.Dialog}>
@@ -247,9 +258,10 @@ export default function Donor() {
                               <Checkbox
                                 number={val}
                                 key={val}
-                                name="diseases[]"
+                                name={val}
                                 label={val}
-                              // onChange={handleDisease}
+                                checked={checkedItems[val]}
+                                onChange={handleDisease}
                               />
                             );
                           })}
