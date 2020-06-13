@@ -1,37 +1,73 @@
+import React, { useState, useEffect } from "react";
+import { Grid, Row, Col } from "react-bootstrap";
+import { ReactBingmaps } from 'react-bingmaps';
 
-import React from "react";
-// react components used to create a google map
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker
-} from "react-google-maps";
 
-const CustomMap = withScriptjs(
-  withGoogleMap(props => (
-    <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{ lat: 40.748817, lng: -73.985428 }}
-      defaultOptions={{
-        scrollwheel: false,
-        zoomControl: true
-      }}
-    >
-      <Marker position={{ lat: 40.748817, lng: -73.985428 }} />
-    </GoogleMap>
-  ))
-);
+const Maps = (props) => {
 
-function Maps({ ...prop }) {
+  // useEffect(() => {
+  //   if(listener == false)
+  //   {
+  //     setPosition([1,1]);
+  //     setPosition([]);
+  //     if (document.getElementById("LocateMeButton")) {
+  //       document.getElementById("LocateMeButton").removeEventListener('click', function () {
+
+  //       });
+
+  //       document.getElementById("LocateMeButton").addEventListener("click", function () {
+
+  //       });
+  //       document.getElementById("LocateMeButton").dispatchEvent(new Event('click'));
+  //       setListener(true);
+  //     } else {
+
+  //     }
+  //   } else {
+
+  //   }
+  // });
+
+  const [position, setPosition] = useState([]);
+
+  const getLocation = (data) => {
+    let locaitonData = data.latitude + ',' + data.longitude;
+    props.setLocation(locaitonData);
+    setPosition([data.latitude, data.longitude]);
+  }
+
   return (
-    <CustomMap
-      googleMapURL="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE"
-      loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `100vh` }} />}
-      mapElement={<div style={{ height: `100%` }} />}
-    />
+    <Grid fluid>
+      <Row>
+        <Col lg={12} sm={12}>
+          <ReactBingmaps
+            bingmapKey="AqgmKUtfTPyfrncmMyD181gzU-0LlgISmXL1noS97GScNCtI3Ws8V38oHrt7uN4m"
+            center={position}
+            mapTypeId={"road"}
+            getLocation={
+              { addHandler: "click", callback: getLocation }
+            }
+            zoom={17}
+            pushPins={
+              [
+                {
+                  "location": position, "option": { color: 'red' }
+                }
+              ]
+            }
+            infoboxes = {
+              [
+                {
+                  "location":position, "option":{ title: 'My Location' }
+                }
+              ]
+            }
+          >
+          </ReactBingmaps>
+        </Col>
+      </Row>
+    </Grid>
   );
-}
+};
 
 export default Maps;

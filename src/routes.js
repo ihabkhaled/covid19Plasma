@@ -1,13 +1,19 @@
 
 import Dashboard from "views/Dashboard.jsx";
 import UserProfile from "views/UserProfile.jsx";
-import TableList from "views/TableList.jsx";
-import Typography from "views/Typography.jsx";
-import Icons from "views/Icons.jsx";
-import Maps from "views/Maps.jsx";
-import Notifications from "views/Notifications.jsx";
+import Login from "components/Login/Login";
+import Donor from "components/Donor/DonorForm.jsx";
+import Maps from "views/Maps";
 
 const dashboardRoutes = [
+  {
+    path: "/login",
+    name: "Login",
+    icon: "pe-7s-graph",
+    component: Login,
+    layout: "",
+    ignore:true
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -21,6 +27,22 @@ const dashboardRoutes = [
     icon: "pe-7s-user",
     component: UserProfile,
     layout: ""
+  },
+  {
+    path: "/donor",
+    name: "Donor Form",
+    icon: "pe-7s-user",
+    component: Donor,
+    layout: "",
+    // ignore:true
+  },
+  {
+    path: "/maps",
+    name: "Maps",
+    icon: "pe-7s-user",
+    component: Maps,
+    layout: "",
+    // ignore:true
   },
   // {
   //   path: "/table",

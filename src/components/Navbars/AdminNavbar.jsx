@@ -35,10 +35,10 @@ class Header extends Component {
           <Navbar.Brand>
             <p>{this.props.brandText}</p>
           </Navbar.Brand>
-          {/* <Navbar.Toggle onClick={this.mobileSidebarToggle} /> */}
+          <Navbar.Toggle onClick={this.mobileSidebarToggle} />
         </Navbar.Header>
         <Navbar.Collapse>
-          {/* <AdminNavbarLinks /> */}
+          <AdminNavbarLinks />
         </Navbar.Collapse>
       </Navbar>
     );
