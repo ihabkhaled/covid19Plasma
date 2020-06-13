@@ -16,10 +16,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Maps from "../../views/Maps";
 import style from "./DonorForm.module.scss";
 import "../../assets/css/maps.css";
+import { API } from "../../variables/APIs.js";
 
 export default function Donor() {
 
   useEffect(() => {
+    submitFormData();
     setOpen(true);
   }, [])
 
@@ -89,7 +91,7 @@ export default function Donor() {
       }
     }
 
-    console.log("checkedItems: ", checkItems.join(","));
+    // console.log("checkedItems: ", checkItems.join(","));
     // return email.length > 0 && name.length > 8 && mobile.length > 10 && age && location && bloodType;
     // console.log(email + name + mobile + age + location + bloodType + donationDate + recoveryDate + address);
     return true;
@@ -98,6 +100,16 @@ export default function Donor() {
   const handleSubmit = (event) => {
     event.preventDefault();
   }
+
+  const submitFormData = async () => {
+    try {
+      const response = await API.getData();
+
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
