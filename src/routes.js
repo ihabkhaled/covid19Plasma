@@ -1,40 +1,41 @@
 
-import Dashboard from "views/Dashboard.jsx";
+// import Dashboard from "views/Dashboard.jsx";
 import TableList from "views/TableList.jsx";
 import Notifications from "views/Notifications.jsx";
 import Donor from "components/Donor/DonorForm.jsx";
+import Patient from "components/Patient/Patient.jsx";
 
 const dashboardRoutes = [
 
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "pe-7s-graph",
-    component: Dashboard,
+    path: "/patient",
+    name: "Search for donors",
+    icon: "pe-7s-search",
+    component: Patient,
     layout: ""
   },
   {
     path: "/donor",
-    name: "Donor Form",
+    name: "Apply as a donor",
     icon: "pe-7s-user",
     component: Donor,
     layout: "",
     // ignore:true
   },
-  {
-    path: "/table",
-    name: "Table List",
-    icon: "pe-7s-note2",
-    component: TableList,
-    layout: ""
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "pe-7s-bell",
-    component: Notifications,
-    layout: ""
-  }
+  // {
+  //   path: "/table",
+  //   name: "Table List",
+  //   icon: "pe-7s-note2",
+  //   component: TableList,
+  //   layout: ""
+  // },
+  // {
+  //   path: "/notifications",
+  //   name: "Notifications",
+  //   icon: "pe-7s-bell",
+  //   component: Notifications,
+  //   layout: ""
+  // }
 ];
 
 export default dashboardRoutes;

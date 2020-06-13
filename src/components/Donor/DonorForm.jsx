@@ -15,6 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Maps from "../../views/Maps";
 import style from "./DonorForm.module.scss";
+import "../../assets/css/maps.css";
 
 export default function Donor() {
 
@@ -144,13 +145,14 @@ export default function Donor() {
                         <Row>
                           <Col md={6}>
                             <FormGroup controlId="name" bsSize="large">
-                              <ControlLabel className={style.label}>Full Name</ControlLabel>
+                              <ControlLabel className={style.label}>Full Name <span className={style.require}>*</span> </ControlLabel>
                               <FormControl
                                 autoFocus
                                 type="text"
                                 value={name}
                                 name="Name"
                                 onChange={e => setName(e.target.value)}
+                                placeholder="Enter your fullname"
                                 required
                               />
                             </FormGroup>
@@ -158,13 +160,14 @@ export default function Donor() {
 
                           <Col md={6}>
                             <FormGroup controlId="email" bsSize="large">
-                              <ControlLabel className={style.label}>Email</ControlLabel>
+                              <ControlLabel className={style.label}>Email <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 autoFocus
                                 type="email"
                                 value={email}
                                 name="email"
                                 onChange={e => setEmail(e.target.value)}
+                                placeholder="Enter your Email"
                                 required
                               />
                             </FormGroup>
@@ -174,12 +177,13 @@ export default function Donor() {
                         <Row>
                           <Col md={6}>
                             <FormGroup controlId="text" bsSize="large">
-                              <ControlLabel className={style.label}>Mobile</ControlLabel>
+                              <ControlLabel className={style.label}>Mobile <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 value={mobile}
                                 onChange={e => setMobile(e.target.value)}
                                 type="text"
                                 name="mobile"
+                                placeholder="Enter your Mobile number"
                                 required
                               />
                             </FormGroup>
@@ -187,12 +191,13 @@ export default function Donor() {
 
                           <Col md={6}>
                             <FormGroup controlId="text" bsSize="large">
-                              <ControlLabel className={style.label}>Age</ControlLabel>
+                              <ControlLabel className={style.label}>Age <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 value={age}
                                 onChange={e => setAge(e.target.value)}
                                 type="number"
                                 name="age"
+                                placeholder="Enter your age"
                                 required
                               />
                             </FormGroup>
@@ -207,6 +212,7 @@ export default function Donor() {
                             value={address}
                             name="address"
                             onChange={e => setAddress(e.target.value)}
+                            placeholder="Enter your address"
                             required
                           />
                         </FormGroup>
@@ -214,7 +220,7 @@ export default function Donor() {
                         <Row>
                           <Col md={6}>
                             <FormGroup controlId="donationDate" bsSize="large">
-                              <ControlLabel className={style.label}>Last donation date</ControlLabel>
+                              <ControlLabel className={style.label}>Last donation date <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 autoFocus
                                 type="date"
@@ -230,7 +236,7 @@ export default function Donor() {
 
                           <Col md={6}>
                             <FormGroup controlId="recoveryDate" bsSize="large">
-                              <ControlLabel className={style.label}>Recovery date</ControlLabel>
+                              <ControlLabel className={style.label}>Recovery date <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 autoFocus
                                 type="date"
@@ -246,7 +252,7 @@ export default function Donor() {
                         </Row>
 
                         <FormGroup className={style.radioButtons} controlId="text" bsSize="large">
-                          <ControlLabel className={style.label}>Blood Type</ControlLabel>
+                          <ControlLabel className={style.label}>Blood Type <span className={style.require}>*</span></ControlLabel>
                           {bloodTypes.map((val) => {
                             return (
                               <Radio
@@ -278,25 +284,27 @@ export default function Donor() {
                           })}
                         </FormGroup>
 
-                        <FormGroup controlId="Map" bsSize="large">
-                          <label className={style.mapNote}>Select your location on map</label>
+                        <FormGroup className={style.Cursor} controlId="Map" bsSize="large">
+                          <label className={style.mapNote}>Select your location on map</label> <span className={style.require}>*</span>
                           <div className={style.Maps}>
                             <Maps
+                              id={1}
+                              zoom={16}
                               setLocation={setLocation}
-                              showLocateMeButton={false}
                               disableStreetside={true}
                             />
                           </div>
                         </FormGroup>
 
                         <FormGroup controlId="location" bsSize="large">
-                          <ControlLabel className={style.label}>Location</ControlLabel>
+                          <ControlLabel className={style.label}>Location <span className={style.require}>*</span></ControlLabel>
                           <FormControl
                             disabled
                             autoFocus
                             type="location"
                             value={location}
                             required
+                            placeholder="Select your location on the map"
                           />
                         </FormGroup>
                         <Button bsStyle="info" pullRight fill disabled={!validateForm()} type="submit">

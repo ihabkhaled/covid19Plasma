@@ -1,0 +1,11 @@
+#LocateMeButton {
+    cursor: pointer;
+}
+
+#MapStyleSelector {
+    display: none;
+}
+
+.NavBar_MapTypeButtonContainerWrapper {
+    display: none;
+}

@@ -6,19 +6,17 @@ import { ReactBingmaps } from 'react-bingmaps';
 const Maps = (props) => {
 
   // useEffect(() => {
-  //   if(listener == false)
-  //   {
-  //     setPosition([1,1]);
+  //   if (listener == false) {
+  //     setPosition([1, 1]);
   //     setPosition([]);
   //     if (document.getElementById("LocateMeButton")) {
-  //       document.getElementById("LocateMeButton").removeEventListener('click', function () {
-
-  //       });
-
   //       document.getElementById("LocateMeButton").addEventListener("click", function () {
-
+  //         setTimeout(function () {
+  //           console.log(document.getElementsByClassName("bm_LogoContainer quadrantOverride")[0].getElementsByTagName("a")[0].getAttribute("href"));
+  //         }, 3000);
   //       });
   //       document.getElementById("LocateMeButton").dispatchEvent(new Event('click'));
+
   //       setListener(true);
   //     } else {
 
@@ -27,6 +25,7 @@ const Maps = (props) => {
 
   //   }
   // });
+  // const [listener, setListener] = useState([]);
 
   const [position, setPosition] = useState([]);
 
@@ -41,26 +40,44 @@ const Maps = (props) => {
       <Row>
         <Col lg={12} sm={12}>
           <ReactBingmaps
+            id={props.id}
             bingmapKey="AqgmKUtfTPyfrncmMyD181gzU-0LlgISmXL1noS97GScNCtI3Ws8V38oHrt7uN4m"
             center={position}
             mapTypeId={"road"}
             getLocation={
-              { addHandler: "click", callback: getLocation }
+              props.id == 1 ? (
+                { addHandler: "click", callback: getLocation }
+              ) : (
+                  ''
+                )
             }
-            zoom={17}
+            zoom={props.zoom}
             pushPins={
-              [
-                {
-                  "location": position, "option": { color: 'red' }
-                }
-              ]
+              props.id == 1 ?
+                (
+                  [
+                    {
+                      "location": position, "option": { color: 'red' }
+                    }
+                  ]
+                ) : (
+                  props.donorsPositions.map(val => (
+                    { "location": val.position, "option": { color: 'red' } }
+                  ))
+                )
             }
-            infoboxes = {
-              [
-                {
-                  "location":position, "option":{ title: 'My Location' }
-                }
-              ]
+            infoboxes={
+              props.id == 1 ? (
+                [
+                  {
+                    "location": position, "option": { title: 'My Location' }
+                  }
+                ]
+              ) : (
+                  props.donorsPositions.map(val => (
+                    { "location": val.position, "option": { title: val.donor } }
+                  ))
+                )
             }
           >
           </ReactBingmaps>
