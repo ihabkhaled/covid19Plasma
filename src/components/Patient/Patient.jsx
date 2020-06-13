@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
@@ -10,8 +10,15 @@ import Maps from "../../views/Maps";
 import style from "./Patient.module.scss";
 import "../../assets/css/maps.css";
 import { API } from "../../variables/APIs.js";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Patient() {
+
+    useEffect(() => {
+        submitFormData();
+      }, []);
+
     //Data states
     const [location, setLocation] = useState("");
     const [bloodType, setBloodType] = useState("");
@@ -34,6 +41,7 @@ export default function Patient() {
 
     //Validations here
     const validateForm = () => {
+        toast.success("Wow so easy !");
         // return email.length > 0 && name.length > 8 && mobile.length > 10 && age && location && bloodType;
         // console.log(email + name + mobile + age + location + bloodType + donationDate + recoveryDate + address);
         return true;
@@ -43,8 +51,19 @@ export default function Patient() {
         event.preventDefault();
     }
 
+    const submitFormData = async () => {
+        try {
+          const response = await API.getData();
+    
+          console.log(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
     return (
         <div className="content">
+            <ToastContainer />
             <br></br>
             <Grid>
                 <Row>
@@ -165,7 +184,7 @@ export default function Patient() {
                             donorsPositions={
                                 [
                                     { position: [30.061439829203486, 31.19165206745909], donor: 'mai' },
-                                    { position: [30.0615553725032, 31.192682035720807], donor: 'omar' },
+                                    { position: [30.0615553725032, 31.192682035720807], donor: 'monmon' },
                                     { position: [30.06159663031896, 31.18709231213377], donor: 'ihab' },
                                     { position: [30.061022921234247, 31.19688773945628], donor: 'mawardy' },
                                     { position: [30.047741330663406, 31.195256956375225], donor: 'kareem' },

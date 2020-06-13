@@ -1,7 +1,6 @@
 
 // import Dashboard from "views/Dashboard.jsx";
 import TableList from "views/TableList.jsx";
-import Notifications from "views/Notifications.jsx";
 import Donor from "components/Donor/DonorForm.jsx";
 import Patient from "components/Patient/Patient.jsx";
 
@@ -29,13 +28,6 @@ const dashboardRoutes = [
   //   component: TableList,
   //   layout: ""
   // },
-  // {
-  //   path: "/notifications",
-  //   name: "Notifications",
-  //   icon: "pe-7s-bell",
-  //   component: Notifications,
-  //   layout: ""
-  // }
 ];
 
 export default dashboardRoutes;

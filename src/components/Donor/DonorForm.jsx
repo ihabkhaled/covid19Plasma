@@ -23,7 +23,7 @@ export default function Donor() {
   useEffect(() => {
     submitFormData();
     setOpen(true);
-  }, [])
+  }, []);
 
 
   //Data states
