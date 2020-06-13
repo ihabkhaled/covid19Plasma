@@ -13,6 +13,8 @@ class Footer extends Component {
               Creative Tim
             </a>
             , made with love for a better web
+            <br></br>
+            Favicon used by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
           </p>
         </Grid>
       </footer>
