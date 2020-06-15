@@ -62,7 +62,9 @@ const Maps = (props) => {
                   ]
                 ) : (
                   props.donorsPositions.map(val => (
-                    { "location": val.position, "option": { color: 'red' } }
+                    {
+                       "location": val.GeoLocation, "option": { color: 'red' } 
+                    }
                   ))
                 )
             }
@@ -75,7 +77,9 @@ const Maps = (props) => {
                 ]
               ) : (
                   props.donorsPositions.map(val => (
-                    { "location": val.position, "option": { title: val.donor } }
+                    {
+                       "location": val.GeoLocation, "option": { title: ' Donor\'s Name: ' + val.Name + ', Blood Type: ' + val.BloodType } 
+                    }
                   ))
                 )
             }

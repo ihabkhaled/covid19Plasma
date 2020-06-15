@@ -156,7 +156,7 @@ export default function Donor() {
         agree === true ? (
           <div className="content">
             <br></br>
-            <Grid>
+            <Grid fluid>
               <Row>
                 <Col md={12}>
                   <Card className={style.label}
@@ -174,7 +174,7 @@ export default function Donor() {
                                 name="Name"
                                 onChange={e => setName(e.target.value)}
                                 placeholder="Enter your fullname"
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
@@ -189,7 +189,7 @@ export default function Donor() {
                                 name="email"
                                 onChange={e => setEmail(e.target.value)}
                                 placeholder="Enter your Email"
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
@@ -205,7 +205,7 @@ export default function Donor() {
                                 type="text"
                                 name="mobile"
                                 placeholder="Enter your Mobile number"
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
@@ -219,7 +219,7 @@ export default function Donor() {
                                 type="number"
                                 name="age"
                                 placeholder="Enter your age"
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
@@ -234,7 +234,6 @@ export default function Donor() {
                             name="address"
                             onChange={e => setAddress(e.target.value)}
                             placeholder="Enter your address"
-                            //required
                           />
                         </FormGroup>
 
@@ -250,7 +249,7 @@ export default function Donor() {
                                 data-date-format="dd/mm/yyyy"
                                 format="dd/mm/yyyy"
                                 onChange={e => setDonationDate(e.target.value)}
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
@@ -266,7 +265,7 @@ export default function Donor() {
                                 data-date-format="dd/mm/yyyy"
                                 format="dd/mm/yyyy"
                                 onChange={e => setRecoveryDate(e.target.value)}
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
@@ -283,7 +282,7 @@ export default function Donor() {
                                 name="bloodTypes"
                                 onChange={handleRadio}
                                 label={val}
-                                //required
+                                required
                               />
                             );
                           })}
@@ -324,7 +323,7 @@ export default function Donor() {
                             autoFocus
                             type="location"
                             value={location}
-                            //required
+                            required
                             placeholder="Select your location on the map"
                           />
                         </FormGroup>

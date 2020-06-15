@@ -7,7 +7,7 @@ import Welcome from "components/Welcome/Welcome.jsx";
 const dashboardRoutes = [
   {
     path: "/welcome",
-    name: "Welcome",
+    name: "Home",
     icon: "pe-7s-home",
     component: Welcome,
     layout: "",

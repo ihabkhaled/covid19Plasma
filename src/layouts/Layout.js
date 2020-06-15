@@ -5,6 +5,8 @@ import NotificationSystem from "react-notification-system";
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
+import Welcome from "components/Welcome/Welcome";
+import P404 from "components/404/404";
 
 import { style } from "variables/Variables.jsx";
 
@@ -36,7 +38,7 @@ class layout extends Component {
         return routes[i].name;
       }
     }
-    return "404";
+    return "Requested page not found";
   };
 
   searchRoutes = (nameKey, myArray) => {
@@ -74,16 +76,27 @@ class layout extends Component {
         color={this.state.color}
         hasImage={this.state.hasImage}/>
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-            {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
-          />
+          {this.props.location.pathname == '/' ? (
+              <AdminNavbar
+                {...this.props}
+                brandText="COVID-19 PLASMA DONATIONS"
+              />
+            ) : (
+              <AdminNavbar
+                {...this.props}
+                brandText={this.getBrandText(this.props.location.pathname)}
+              />
+            )}
           {foundRoute ? (
               <Router
                 location={this.props.location.pathname} 
               />
           ) : (
-            '404 not found'
+            this.props.location.pathname == '/' ? (
+              <Welcome />
+            ) : (
+              <P404 />
+            )
           )}
           <Footer />
         </div>

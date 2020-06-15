@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 export const API = {
     getData: (location,bloodType,range = 50000) => axiosInstance.post('http://localhost:8000/api/donor/getnearby', {
         geolocation: location,
-        bloodTypes:[bloodType],
+        bloodTypes:bloodType,
         rangeInMeters: range
     },{
         headers: { 'Content-Type': 'text/plain' }

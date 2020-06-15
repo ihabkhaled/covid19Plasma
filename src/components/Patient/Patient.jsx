@@ -11,6 +11,7 @@ import style from "./Patient.module.scss";
 import "../../assets/css/maps.css";
 import { API } from "../../variables/APIs.js";
 import showNotification from '../../variables/Notifications';
+import DonorsData from './DonorsData.jsx';
 
 export default function Patient() {
 
@@ -20,7 +21,8 @@ export default function Patient() {
 
     //Data states
     const [location, setLocation] = useState("");
-    const [bloodType, setBloodType] = useState("");
+    const [donorsFound, setDonorsFound] = useState([]);
+    const [bloodType, setBloodType] = useState({});
 
     const bloodTypes = [
         'O-',
@@ -33,14 +35,13 @@ export default function Patient() {
         'AB+'
     ];
 
-    const handleRadio = event => {
-        const target = event.target;
-        setBloodType(target.value);
-    };
+    const handleBloodType = event => {
+        setBloodType({ ...bloodType, [event.target.name]: event.target.checked });
+    }
 
     //Validations here
     const validateForm = () => {
-        return location && bloodType;
+        return location;
     }
 
     const handleSubmit = (event) => {
@@ -51,29 +52,39 @@ export default function Patient() {
     const submitFormData = async () => {
         try {
             let locationData = location.split(",");
-            const response = await API.getData([parseFloat(locationData[0]),parseFloat(locationData[1])],bloodType);
+            let checkItems = [];
+            for (const theItem in bloodType) {
+                if (bloodType[theItem] === true) {
+                checkItems.push(theItem);
+                }
+            }
+            const response = await API.getData([parseFloat(locationData[0]),parseFloat(locationData[1])],checkItems);
         
             if(response.data)
             {
                 if(response.data.State == "Success" && response.data.Donors.length > 0) {
                     showNotification('success','Data Found!');
+                    setDonorsFound(response.data.Donors);
                 } else {
                     showNotification('error','error!');
+                    setDonorsFound([]);
                 }
             } else {
                 showNotification('error','error!');
+                setDonorsFound([]);
             }
             
         } catch (error) {
             showNotification('error','error!');
-          console.log(error);
+            setDonorsFound([]);
+            console.log(error);
         }
       };
 
     return (
         <div className="content">
             <br></br>
-            <Grid>
+            <Grid fluid>
                 <Row>
                     <Col md={12}>
                         <Card className={style.label}
@@ -109,14 +120,13 @@ export default function Patient() {
                                         <ControlLabel className={style.label}>Select Blood Type <span className={style.require}>*</span></ControlLabel>
                                         {bloodTypes.map((val) => {
                                             return (
-                                                <Radio
+                                                <Checkbox
                                                     number={val}
                                                     key={val}
-                                                    option={val}
-                                                    name="bloodTypes"
-                                                    onChange={handleRadio}
+                                                    name={val}
                                                     label={val}
-                                                    required
+                                                    checked={bloodType[val]}
+                                                    onChange={handleBloodType}
                                                 />
                                             );
                                         })}
@@ -132,76 +142,11 @@ export default function Patient() {
                     </Col>
                 </Row>
 
-                {
-                    //Data Result here
-                }
-                <Row>
-                    <Col md={12}>
-                        <Card
-                            title="Donors list"
-                            ctTableFullWidth
-                            ctTableResponsive
-                            content={
-                                <Table striped hover>
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                            <td>Number</td>
-                                            <td>Email</td>
-                                            <td>Age</td>
-                                            <td>Blood Type</td>
-                                            <td>Last Donating</td>
-                                            <td>Recovery Date</td>
-                                            <td>Chronic Diseases</td>
-                                            <td>Distance</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Ihab</td>
-                                            <td>1234567890</td>
-                                            <td>ihab@gmai.com</td>
-                                            <td>25</td>
-                                            <td>B+</td>
-                                            <td>2019</td>
-                                            <td>2019</td>
-                                            <td>No Chronic diseases</td>
-                                            <td>5 KMs</td>
-                                        </tr>
-                                        {/* {tdArray.map((prop, key) => {
-                                            return (
-                                                <tr key={key}>
-                                                    {prop.map((prop, key) => {
-                                                        return <td key={key}>{prop}</td>;
-                                                    })}
-                                                </tr>
-                                            );
-                                        })} */}
-                                    </tbody>
-                                </Table>
-                            }
-                        />
-                    </Col>
-                </Row>
-                <FormGroup controlId="Map2" bsSize="large">
-                    <label className={style.mapNote}>Donors Locations</label>
-                    <div className={style.Maps}>
-                        <Maps
-                            id={2}
-                            zoom={12}
-                            donorsPositions={
-                                [
-                                    { position: [30.061439829203486, 31.19165206745909], donor: 'mai' },
-                                    { position: [30.0615553725032, 31.192682035720807], donor: 'monmon' },
-                                    { position: [30.06159663031896, 31.18709231213377], donor: 'ihab' },
-                                    { position: [30.061022921234247, 31.19688773945628], donor: 'mawardy' },
-                                    { position: [30.047741330663406, 31.195256956375225], donor: 'kareem' },
-                                    { position: [30.038957151934078, 31.2158563216096], donor: 'mariam' }
-                                ]
-                            }
-                        />
-                    </div>
-                </FormGroup>
+                {donorsFound.length > 0 && (
+                    <DonorsData
+                        donorsFound={donorsFound}
+                    />
+                )}
             </Grid>
         </div>
     );
