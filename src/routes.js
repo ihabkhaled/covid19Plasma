@@ -2,13 +2,14 @@
 // import Dashboard from "views/Dashboard.jsx";
 import Donor from "components/Donor/DonorForm.jsx";
 import Patient from "components/Patient/Patient.jsx";
+import Welcome from "components/Welcome/Welcome.jsx";
 
 const dashboardRoutes = [
   {
     path: "/welcome",
     name: "Welcome",
     icon: "pe-7s-home",
-    component: Patient,
+    component: Welcome,
     layout: "",
     // ignore:true
   },

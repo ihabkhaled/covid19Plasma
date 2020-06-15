@@ -28,7 +28,7 @@
     "typescript": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start PORT=2509",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

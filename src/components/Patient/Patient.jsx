@@ -40,7 +40,6 @@ export default function Patient() {
 
     //Validations here
     const validateForm = () => {
-        // submitFormData();
         return location && bloodType;
     }
 
@@ -51,16 +50,22 @@ export default function Patient() {
 
     const submitFormData = async () => {
         try {
-            console.log(location, bloodType);
-            const response = await API.getData(location,bloodType);
+            let locationData = location.split(",");
+            const response = await API.getData([parseFloat(locationData[0]),parseFloat(locationData[1])],bloodType);
         
-            console.log(response.data);
-            if(response.data.status)
+            if(response.data)
             {
-                showNotification('success','Data Retrieved Successfully!');
+                if(response.data.State == "Success" && response.data.Donors.length > 0) {
+                    showNotification('success','Data Found!');
+                } else {
+                    showNotification('error','error!');
+                }
+            } else {
+                showNotification('error','error!');
             }
             
         } catch (error) {
+            showNotification('error','error!');
           console.log(error);
         }
       };

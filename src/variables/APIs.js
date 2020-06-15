@@ -9,31 +9,24 @@ const axiosInstance = axios.create({
 
 
 export const API = {
-    getData: (location,bloodType,range = 5000) => axiosInstance.get('http://localhost:8000/api/donor/getnearby', {
-        data: {
-            geolocation: [location],
-            bloodTypes:[bloodType],
-            rangeInMeters: range
-        }
+    getData: (location,bloodType,range = 50000) => axiosInstance.post('http://localhost:8000/api/donor/getnearby', {
+        geolocation: location,
+        bloodTypes:[bloodType],
+        rangeInMeters: range
     },{
         headers: { 'Content-Type': 'text/plain' }
     }),
-    setData: () => axiosInstance.post('http://localhost:8000/api/donor/add', {
-        data: {
-            "name": "Nametest",
-            "geolocation": [
-                0.0,
-                0.0
-            ],
-            "phone": "01000",
-            "email": "email@asdasd.co",
-            "bloodType": "A+",
-            "recoveryDate": "2014-11-12T11:45:26.371Z",
-            "age": 18,
-            "deseases": [
-                "nothing"
-            ]
-        }
+    
+    setData: (name,location,phone,email,bloodType,donationDate,recoveryDate,age,diseases,address) => axiosInstance.post('http://localhost:8000/api/donor/add', {
+        "name": name,
+        "geolocation": location,
+        "phone": phone,
+        "email": email,
+        "bloodType": bloodType,
+        "recoveryDate": new Date(recoveryDate).toISOString(),
+        "recoveryDate": new Date(recoveryDate).toISOString(),
+        "age": age,
+        "diseases": diseases
     },{
         headers: { 'Content-Type': 'text/plain' }
     }

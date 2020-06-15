@@ -39,6 +39,14 @@ class layout extends Component {
     return "404";
   };
 
+  searchRoutes = (nameKey, myArray) => {
+      for (var i=0; i < myArray.length; i++) {
+          if (myArray[i].path == nameKey) {
+              return true;
+          }
+      }
+  };
+
   componentDidMount() {
 
   }
@@ -58,6 +66,7 @@ class layout extends Component {
     }
   }
   render() {
+    let foundRoute = this.searchRoutes(this.props.location.pathname,routes);
     return (
       <div className="wrapper">
         <NotificationContainer/>
@@ -69,9 +78,13 @@ class layout extends Component {
             {...this.props}
             brandText={this.getBrandText(this.props.location.pathname)}
           />
-          <Router
-            location={this.props.location.pathname} 
-          />
+          {foundRoute ? (
+              <Router
+                location={this.props.location.pathname} 
+              />
+          ) : (
+            '404 not found'
+          )}
           <Footer />
         </div>
       </div>

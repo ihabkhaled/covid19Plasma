@@ -17,11 +17,11 @@ import Maps from "../../views/Maps";
 import style from "./DonorForm.module.scss";
 import "../../assets/css/maps.css";
 import { API } from "../../variables/APIs.js";
+import showNotification from '../../variables/Notifications';
 
 export default function Donor() {
 
   useEffect(() => {
-    submitFormData();
     setOpen(true);
   }, []);
 
@@ -84,29 +84,38 @@ export default function Donor() {
 
   //Validations here
   const validateForm = () => {
-    let checkItems = [];
-    for (const theItem in checkedItems) {
-      if (checkedItems[theItem] === true) {
-        checkItems.push(theItem);
-      }
-    }
-
-    // console.log("checkedItems: ", checkItems.join(","));
     // return email.length > 0 && name.length > 8 && mobile.length > 10 && age && location && bloodType;
-    // console.log(email + name + mobile + age + location + bloodType + donationDate + recoveryDate + address);
     return true;
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    submitFormData();
   }
 
   const submitFormData = async () => {
     try {
-      const response = await API.setData();
+      let locationData = location.split(",");
+      let checkItems = [];
+      for (const theItem in checkedItems) {
+        if (checkedItems[theItem] === true) {
+          checkItems.push(theItem);
+        }
+      }
 
-      console.log(response.data);
+      const response = await API.setData(name,[parseFloat(locationData[0]),parseFloat(locationData[1])],mobile,email,bloodType,donationDate,recoveryDate,age,checkItems,address);
+
+      if(response.data)
+      {
+        if(response.data.State == "success")
+        {
+          showNotification('success','Data Saved!');
+        } else {
+          showNotification('error','error!');
+        }
+      }
     } catch (error) {
+      showNotification('error','error!');
       console.log(error);
     }
   };
@@ -165,7 +174,7 @@ export default function Donor() {
                                 name="Name"
                                 onChange={e => setName(e.target.value)}
                                 placeholder="Enter your fullname"
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -180,7 +189,7 @@ export default function Donor() {
                                 name="email"
                                 onChange={e => setEmail(e.target.value)}
                                 placeholder="Enter your Email"
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -196,7 +205,7 @@ export default function Donor() {
                                 type="text"
                                 name="mobile"
                                 placeholder="Enter your Mobile number"
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -210,7 +219,7 @@ export default function Donor() {
                                 type="number"
                                 name="age"
                                 placeholder="Enter your age"
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -225,7 +234,7 @@ export default function Donor() {
                             name="address"
                             onChange={e => setAddress(e.target.value)}
                             placeholder="Enter your address"
-                            required
+                            //required
                           />
                         </FormGroup>
 
@@ -241,7 +250,7 @@ export default function Donor() {
                                 data-date-format="dd/mm/yyyy"
                                 format="dd/mm/yyyy"
                                 onChange={e => setDonationDate(e.target.value)}
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -257,7 +266,7 @@ export default function Donor() {
                                 data-date-format="dd/mm/yyyy"
                                 format="dd/mm/yyyy"
                                 onChange={e => setRecoveryDate(e.target.value)}
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -274,7 +283,7 @@ export default function Donor() {
                                 name="bloodTypes"
                                 onChange={handleRadio}
                                 label={val}
-                                required
+                                //required
                               />
                             );
                           })}
@@ -315,7 +324,7 @@ export default function Donor() {
                             autoFocus
                             type="location"
                             value={location}
-                            required
+                            //required
                             placeholder="Select your location on the map"
                           />
                         </FormGroup>
