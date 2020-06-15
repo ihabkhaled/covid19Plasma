@@ -9,5 +9,33 @@ const axiosInstance = axios.create({
 
 
 export const API = {
-    getData: () => axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1')
+    getData: (location,bloodType,range = 5000) => axiosInstance.get('http://localhost:8000/api/donor/getnearby', {
+        data: {
+            geolocation: [location],
+            bloodTypes:[bloodType],
+            rangeInMeters: range
+        }
+    },{
+        headers: { 'Content-Type': 'text/plain' }
+    }),
+    setData: () => axiosInstance.post('http://localhost:8000/api/donor/add', {
+        data: {
+            "name": "Nametest",
+            "geolocation": [
+                0.0,
+                0.0
+            ],
+            "phone": "01000",
+            "email": "email@asdasd.co",
+            "bloodType": "A+",
+            "recoveryDate": "2014-11-12T11:45:26.371Z",
+            "age": 18,
+            "deseases": [
+                "nothing"
+            ]
+        }
+    },{
+        headers: { 'Content-Type': 'text/plain' }
+    }
+    )
 };

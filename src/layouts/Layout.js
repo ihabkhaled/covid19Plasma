@@ -36,7 +36,7 @@ class layout extends Component {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "404";
   };
 
   componentDidMount() {
@@ -69,7 +69,9 @@ class layout extends Component {
             {...this.props}
             brandText={this.getBrandText(this.props.location.pathname)}
           />
-          <Router />
+          <Router
+            location={this.props.location.pathname} 
+          />
           <Footer />
         </div>
       </div>

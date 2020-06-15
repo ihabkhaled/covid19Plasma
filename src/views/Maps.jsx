@@ -42,7 +42,7 @@ const Maps = (props) => {
           <ReactBingmaps
             id={props.id}
             bingmapKey="AqgmKUtfTPyfrncmMyD181gzU-0LlgISmXL1noS97GScNCtI3Ws8V38oHrt7uN4m"
-            center={position}
+            center={[0,0]}
             mapTypeId={"road"}
             getLocation={
               props.id == 1 ? (

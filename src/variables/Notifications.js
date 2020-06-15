@@ -6,7 +6,7 @@ const showNotification = (type,message = '') => {
     if (type == 'success') {
         return NotificationManager.success(
             'success',
-            'success',
+             message,
             3000
         );
     } else if (type == 'error') {

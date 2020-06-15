@@ -4,7 +4,14 @@ import Donor from "components/Donor/DonorForm.jsx";
 import Patient from "components/Patient/Patient.jsx";
 
 const dashboardRoutes = [
-
+  {
+    path: "/welcome",
+    name: "Welcome",
+    icon: "pe-7s-home",
+    component: Patient,
+    layout: "",
+    // ignore:true
+  },
   {
     path: "/patient",
     name: "Search for donors",

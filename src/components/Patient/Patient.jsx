@@ -15,8 +15,7 @@ import showNotification from '../../variables/Notifications';
 export default function Patient() {
 
     useEffect(() => {
-        showNotification('success','Data Saved Successfully!');
-        submitFormData();
+        // submitFormData();
       }, []);
 
     //Data states
@@ -41,21 +40,26 @@ export default function Patient() {
 
     //Validations here
     const validateForm = () => {
-        showNotification('success','Data Saved Successfully!');
-        // return email.length > 0 && name.length > 8 && mobile.length > 10 && age && location && bloodType;
-        // console.log(email + name + mobile + age + location + bloodType + donationDate + recoveryDate + address);
-        return true;
+        // submitFormData();
+        return location && bloodType;
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        submitFormData();
     }
 
     const submitFormData = async () => {
         try {
-          const response = await API.getData();
-    
-          console.log(response.data);
+            console.log(location, bloodType);
+            const response = await API.getData(location,bloodType);
+        
+            console.log(response.data);
+            if(response.data.status)
+            {
+                showNotification('success','Data Retrieved Successfully!');
+            }
+            
         } catch (error) {
           console.log(error);
         }

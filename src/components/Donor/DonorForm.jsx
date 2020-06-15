@@ -103,7 +103,7 @@ export default function Donor() {
 
   const submitFormData = async () => {
     try {
-      const response = await API.getData();
+      const response = await API.setData();
 
       console.log(response.data);
     } catch (error) {
