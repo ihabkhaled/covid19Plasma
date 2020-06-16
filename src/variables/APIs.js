@@ -24,8 +24,9 @@ export const API = {
         "email": email,
         "bloodType": bloodType,
         "recoveryDate": new Date(recoveryDate).toISOString(),
-        "recoveryDate": new Date(recoveryDate).toISOString(),
+        "lastDonationDate": new Date(donationDate).toISOString(),
         "age": age,
+        "address": address,
         "diseases": diseases
     },{
         headers: { 'Content-Type': 'text/plain' }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import Button from "components/CustomButton/CustomButton.jsx";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 
@@ -10,6 +12,16 @@ export default function Welcome() {
     useEffect(() => {
     }, []);
 
+    const history = useHistory();
+
+    const handleDonation = () => {
+        history.push("/patient");
+    };
+
+    const handleSearchDonors = () => {
+        history.push("/donor");
+    };
+
     return (
         <div className="content">
             <br></br>
@@ -17,7 +29,6 @@ export default function Welcome() {
                 <Row>
                     <Col md={12}>
                         <Card className={style.label}
-                            title="COVID-19 PLASMA DONATIONS"
                             content={
                                 <div>
                                     <div>
@@ -36,8 +47,20 @@ export default function Welcome() {
                                     <br></br>
                                     <h3>Core Features</h3>
                                     <ul>
-                                        <li><b>Donating</b>, Apply your data for COVID-19 Plasma Donations.</li>
-                                        <li><b>Search for Donors</b>, Search and Find the nearest donors who are ready to donate their Plasma.</li>
+                                        <li>
+                                            <b>Donating</b>, Apply your data for COVID-19 Plasma Donations. &nbsp;
+                                            <Button onClick={handleDonation} bsStyle="info" fill type="button">
+                                                Donate
+                                            </Button>
+                                        </li>
+                                        <br></br>
+                                        <br></br>
+                                        <li>
+                                            <b>Search for Donors</b>, Search and Find the nearest donors who are ready to donate their Plasma. &nbsp;
+                                            <Button onClick={handleSearchDonors} bsStyle="info" fill type="button">
+                                                Find Plasma
+                                            </Button>
+                                        </li>
                                     </ul>
                                 </div>
                             }

@@ -28,10 +28,11 @@ const DonorsData = (props) => {
                             <Col md={12}>
                                 <Card
                                     title="Donors list"
-                                    ctTableFullWidth
-                                    ctTableResponsive
+                                    // ctTableFullWidth
+                                    // ctTableResponsive
                                     content={
-                                        <Table size="sm" striped bordered hover responsive>
+                                        <div className={style.tableResponsive}>
+                                        <Table className={style.tablePadding} size="sm" striped bordered hover>
                                             <thead>
                                                 <tr>
                                                     <td>#</td>
@@ -44,6 +45,7 @@ const DonorsData = (props) => {
                                                     <td>Recovery Date</td>
                                                     <td>Chronic Diseases</td>
                                                     <td>Distance</td>
+                                                    <td>Address</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -60,11 +62,13 @@ const DonorsData = (props) => {
                                                             <td>{key.RecoveryDate}</td>
                                                             <td>{key.Diseases}</td>
                                                             <td>{(key.Distance/1000).toFixed(2)} KM</td>
+                                                            <td>{key.Address}</td>
                                                         </tr>
                                                     );
                                                 })}
                                             </tbody>
                                         </Table>
+                                        </div>
                                     }
                                 />
                             </Col>
