@@ -40,7 +40,7 @@ const DonorsData = (props) => {
                                                     <td>Email</td>
                                                     <td>Age</td>
                                                     <td>Blood Type</td>
-                                                    <td>Last Donating</td>
+                                                    <td>Last Donating Date</td>
                                                     <td>Recovery Date</td>
                                                     <td>Chronic Diseases</td>
                                                     <td>Distance</td>
@@ -56,10 +56,10 @@ const DonorsData = (props) => {
                                                             <td>{key.Email}</td>
                                                             <td>{key.Age}</td>
                                                             <td>{key.BloodType}</td>
-                                                            <td>2019</td>
+                                                            <td>{key.LastDonationDate}</td>
                                                             <td>{key.RecoveryDate}</td>
                                                             <td>{key.Diseases}</td>
-                                                            <td>5 KMs</td>
+                                                            <td>{(key.Distance/1000).toFixed(2)} KM</td>
                                                         </tr>
                                                     );
                                                 })}
