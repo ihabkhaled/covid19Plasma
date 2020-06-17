@@ -15,7 +15,25 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 export default function Patient() {
 
     useEffect(() => {
-        // submitFormData();
+        setTimeout(() => {
+            const isMobile = window.isMobile().mobile();
+            if(isMobile)
+            {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
+                    },
+                    function(error){
+                        alert(error.message);
+                    }, {
+                        enableHighAccuracy: true, timeout : 5000
+                    }
+                    );
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            }
+        },1200);
       }, []);
 
     const DonorsData = React.lazy(() => import('./DonorsData.jsx'));
@@ -42,7 +60,8 @@ export default function Patient() {
 
     //Validations here
     const validateForm = () => {
-        return location;
+        // return location;
+        return true;
     }
 
     const handleSubmit = (event) => {
@@ -52,6 +71,7 @@ export default function Patient() {
 
     const submitFormData = async () => {
         try {
+            console.log(location)
             let locationData = location.split(",");
             let checkItems = [];
             for (const theItem in bloodType) {

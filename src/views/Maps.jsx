@@ -5,32 +5,30 @@ import { ReactBingmaps } from 'react-bingmaps';
 
 const Maps = (props) => {
 
-  useEffect(() => {
-    
-  },[props.location])
+    useEffect(() => {
+      if (listener == false) {
+        setPosition([1, 1]);
+        setPosition([]);
+        if(props.location)
+        {
+            if (props.location.length > 0) {
+              props.setLocation(null);
+              setListener(true);
+              setTimeout(() => {
+                let myLocation = props.location.split(',');
+                let locaitonData = parseFloat(myLocation[0]) + ',' + parseFloat(myLocation[1]);
+                props.setLocation(locaitonData);
+                setPosition([parseFloat(myLocation[0]),parseFloat(myLocation[1])]);
+              },1000);
+          } else {
+          }
+        } else {
+        }
+      } else { 
+      }
+    });
 
-  // useEffect(() => {
-  //   if (listener == false) {
-  //     setPosition([1, 1]);
-  //     setPosition([]);
-  //     if (document.getElementById("LocateMeButton")) {
-  //       document.getElementById("LocateMeButton").addEventListener("click", function () {
-  //         setTimeout(function () {
-  //           console.log(document.getElementsByClassName("bm_LogoContainer quadrantOverride")[0].getElementsByTagName("a")[0].getAttribute("href"));
-  //         }, 3000);
-  //       });
-  //       document.getElementById("LocateMeButton").dispatchEvent(new Event('click'));
-
-  //       setListener(true);
-  //     } else {
-
-  //     }
-  //   } else {
-
-  //   }
-  // });
-  // const [listener, setListener] = useState([]);
-
+  const [listener, setListener] = useState(false);
   const [position, setPosition] = useState([]);
 
   const getLocation = (data) => {
@@ -46,7 +44,7 @@ const Maps = (props) => {
           <ReactBingmaps
             id={props.id}
             bingmapKey="AqgmKUtfTPyfrncmMyD181gzU-0LlgISmXL1noS97GScNCtI3Ws8V38oHrt7uN4m"
-            center={[0,0]}
+            center={position}
             mapTypeId={"road"}
             getLocation={
               props.id == 1 ? (
@@ -59,28 +57,20 @@ const Maps = (props) => {
             pushPins={
               props.id == 1 &&
                 (
-                  props.location && props.location.length > 0 ? (
-                    [
-                      {
-                        "location": position, "option": { color: 'red' }
-                      }
-                    ]
-                  ) : (
-                    ' '
-                  )
+                  [
+                    {
+                      "location": position, "option": { color: 'red' }
+                    }
+                  ]
                 )
             }
             infoboxes={
               props.id == 1 && (
-                props.location && props.location.length > 0 ? (
-                  [
-                    {
-                      "location": position, "option": { title: 'My Location' }
-                    }
-                  ]
-                ) : (
-                  ' '
-                )
+                [
+                  {
+                    "location": position, "option": { title: 'My Location' }
+                  }
+                ]
               )
             }
             infoboxesWithPushPins = {

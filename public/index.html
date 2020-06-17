@@ -44,6 +44,13 @@
       rel="stylesheet"
       type="text/css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
+    <script>
+      var mobileData = new MobileDetect(window.navigator.userAgent);
+      window.isMobile = () => {
+        return mobileData;
+      }
+  </script>
   </head>
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
