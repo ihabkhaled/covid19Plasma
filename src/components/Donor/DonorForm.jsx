@@ -110,6 +110,18 @@ export default function Donor() {
         if(response.data.State == "success")
         {
           showNotification('success','Data Saved!');
+          
+          //Clear All Data
+          setName("");
+          setAddress("");
+          setMobile("");
+          setEmail("");
+          setLocation("");
+          setAge("");
+          setDonationDate("");
+          setRecoveryDate("");
+          setBloodType("");
+          setCheckedItems({});
         } else {
           showNotification('error','error!');
         }
@@ -174,7 +186,7 @@ export default function Donor() {
                                 name="Name"
                                 onChange={e => setName(e.target.value)}
                                 placeholder="Enter your fullname"
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -189,7 +201,7 @@ export default function Donor() {
                                 name="email"
                                 onChange={e => setEmail(e.target.value)}
                                 placeholder="Enter your Email"
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -205,7 +217,7 @@ export default function Donor() {
                                 type="text"
                                 name="mobile"
                                 placeholder="Enter your Mobile number"
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -219,7 +231,7 @@ export default function Donor() {
                                 type="number"
                                 name="age"
                                 placeholder="Enter your age"
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -249,7 +261,7 @@ export default function Donor() {
                                 data-date-format="dd/mm/yyyy"
                                 format="dd/mm/yyyy"
                                 onChange={e => setDonationDate(e.target.value)}
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -265,7 +277,7 @@ export default function Donor() {
                                 data-date-format="dd/mm/yyyy"
                                 format="dd/mm/yyyy"
                                 onChange={e => setRecoveryDate(e.target.value)}
-                                required
+                                //required
                               />
                             </FormGroup>
                           </Col>
@@ -282,7 +294,8 @@ export default function Donor() {
                                 name="bloodTypes"
                                 onChange={handleRadio}
                                 label={val}
-                                required
+                                checked={bloodType === val}
+                                //required
                               />
                             );
                           })}
@@ -312,6 +325,7 @@ export default function Donor() {
                               zoom={16}
                               setLocation={setLocation}
                               disableStreetside={true}
+                              location={location}
                             />
                           </div>
                         </FormGroup>
@@ -323,7 +337,7 @@ export default function Donor() {
                             autoFocus
                             type="location"
                             value={location}
-                            required
+                            //required
                             placeholder="Select your location on the map"
                           />
                         </FormGroup>

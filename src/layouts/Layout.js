@@ -1,14 +1,11 @@
 
 import React, { Component } from "react";
-import NotificationSystem from "react-notification-system";
 
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
 import Welcome from "components/Welcome/Welcome";
 import P404 from "components/404/404";
-
-import { style } from "variables/Variables.jsx";
 
 import routes from "routes.js";
 import Router from "Router.js";

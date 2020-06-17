@@ -1,9 +1,8 @@
-import React, { useState , useEffect } from "react";
+import React, { useState , useEffect, Suspense } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { Grid, Row, Col, Table } from "react-bootstrap";
+import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
-import Radio from 'components/CustomRadio/CustomRadio';
 import Checkbox from 'components/CustomCheckbox/CustomCheckbox';
 
 import Maps from "../../views/Maps";
@@ -11,13 +10,15 @@ import style from "./Patient.module.scss";
 import "../../assets/css/maps.css";
 import { API } from "../../variables/APIs.js";
 import showNotification from '../../variables/Notifications';
-import DonorsData from './DonorsData.jsx';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function Patient() {
 
     useEffect(() => {
         // submitFormData();
       }, []);
+
+    const DonorsData = React.lazy(() => import('./DonorsData.jsx'));
 
     //Data states
     const [location, setLocation] = useState("");
@@ -64,7 +65,7 @@ export default function Patient() {
             {
                 if(response.data.State == "Success" && response.data.Donors.length > 0) {
                     showNotification('success','Data Found!');
-                    setDonorsFound(response.data.Donors);
+                        setDonorsFound(response.data.Donors);
                 } else {
                     showNotification('error','error!');
                     setDonorsFound([]);
@@ -99,6 +100,7 @@ export default function Patient() {
                                                 id={1}
                                                 zoom={16}
                                                 setLocation={setLocation}
+                                                location={location}
                                                 disableStreetside={true}
                                             />
                                         </div>
@@ -143,9 +145,11 @@ export default function Patient() {
                 </Row>
 
                 {donorsFound.length > 0 && (
-                    <DonorsData
-                        donorsFound={donorsFound}
-                    />
+                    <Suspense fallback={<CircularProgress />}>
+                        <DonorsData
+                            donorsFound={donorsFound}
+                        />
+                    </Suspense>
                 )}
             </Grid>
         </div>

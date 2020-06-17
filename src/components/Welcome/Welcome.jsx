@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from 'react-router-dom';
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
-import { Grid, Row, Col, Table } from "react-bootstrap";
+import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 
 import style from "./Welcome.module.scss";
@@ -15,11 +14,11 @@ export default function Welcome() {
     const history = useHistory();
 
     const handleDonation = () => {
-        history.push("/patient");
+        history.push("/donor");
     };
 
     const handleSearchDonors = () => {
-        history.push("/donor");
+        history.push("/patient");
     };
 
     return (

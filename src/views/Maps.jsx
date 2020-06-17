@@ -5,6 +5,10 @@ import { ReactBingmaps } from 'react-bingmaps';
 
 const Maps = (props) => {
 
+  useEffect(() => {
+    
+  },[props.location])
+
   // useEffect(() => {
   //   if (listener == false) {
   //     setPosition([1, 1]);
@@ -53,35 +57,42 @@ const Maps = (props) => {
             }
             zoom={props.zoom}
             pushPins={
-              props.id == 1 ?
+              props.id == 1 &&
                 (
-                  [
-                    {
-                      "location": position, "option": { color: 'red' }
-                    }
-                  ]
-                ) : (
-                  props.donorsPositions.map(val => (
-                    {
-                       "location": val.GeoLocation, "option": { color: 'red' } 
-                    }
-                  ))
+                  props.location && props.location.length > 0 ? (
+                    [
+                      {
+                        "location": position, "option": { color: 'red' }
+                      }
+                    ]
+                  ) : (
+                    ' '
+                  )
                 )
             }
             infoboxes={
-              props.id == 1 ? (
-                [
-                  {
-                    "location": position, "option": { title: 'My Location' }
-                  }
-                ]
-              ) : (
-                  props.donorsPositions.map(val => (
+              props.id == 1 && (
+                props.location && props.location.length > 0 ? (
+                  [
                     {
-                       "location": val.GeoLocation, "option": { title: ' Donor\'s Name: ' + val.Name + ', Blood Type: ' + val.BloodType } 
+                      "location": position, "option": { title: 'My Location' }
                     }
-                  ))
+                  ]
+                ) : (
+                  ' '
                 )
+              )
+            }
+            infoboxesWithPushPins = {
+              props.id == 2 && (
+                props.donorsPositions.map(val => (
+                  {
+                    "location":val.GeoLocation, 
+                    "infoboxOption": { title: 'Donor: ' + val.Name, description: 'Blood Type: ' + val.BloodType },
+                    "pushPinOption":{ title: val.Distance }
+                  }
+                ))
+              )
             }
           >
           </ReactBingmaps>

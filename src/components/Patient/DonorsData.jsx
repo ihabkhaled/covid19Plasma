@@ -1,73 +1,151 @@
-import React, { useState , useEffect } from "react";
+import React, { useState , useEffect , Suspense } from "react";
 import { FormGroup } from "react-bootstrap";
-import { Grid, Row, Col, Table } from "react-bootstrap";
+import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import Maps from "../../views/Maps";
 import style from "./Patient.module.scss";
 import "../../assets/css/maps.css";
+import DataTable from 'react-data-table-component';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const columns = [
+    {
+        name: 'Name',
+        selector: 'Name',
+        sortable: true,
+        wrap: true,
+        width:'250px'
+    },
+    {
+        name: 'Phone',
+        selector: 'Phone',
+        sortable: true,
+        wrap: true,
+        grow:2
+    },
+    {
+        name: 'Email',
+        selector: 'Email',
+        sortable: true,
+        wrap: true,
+        width:'250px'
+    },
+    {
+        name: 'Age',
+        selector: 'Age',
+        sortable: true,
+        wrap: true
+    },
+    {
+        name: 'Blood Type',
+        selector: 'BloodType',
+        sortable: true,
+        wrap: true
+    },
+    {
+        name: 'Last Donating Date',
+        selector: 'LastDonationDate',
+        sortable: true,
+        wrap: true,
+        width:'150px'
+    },
+    {
+        name: 'Recovery Date',
+        selector: 'RecoveryDate',
+        sortable: true,
+        wrap: true,
+        width:'150px'
+    },
+    {
+        name: 'Chronic Diseases',
+        selector: 'Diseases',
+        sortable: true,
+        wrap: true,
+        width:'250px'
+    },
+    {
+        name: 'Distance',
+        selector: 'Distance',
+        sortable: true,
+        wrap: true
+    },
+    {
+        name: 'Address',
+        selector: 'Address',
+        sortable: true,
+        wrap: true,
+        width:'250px'
+    },
+];
+
+const customStyles = {
+    headCells: {
+      style: {
+        fontWeight:'bold',
+        backgroundColor: "#122861",
+        color:'#FFFFFF',
+        borderStyle:'solid',
+        borderWidth:'1px',
+        borderColor:'#8b8b8b'
+      },
+    },
+    cells: {
+        style: {
+            borderStyle:'solid',
+            borderWidth:'1px',
+            borderColor:'#8b8b8b'
+        },
+    }
+  };
 
 const DonorsData = (props) => {
 
     useEffect(() => {
-        setDonorsDataArr(props.donorsFound);
+        let data = props.donorsFound;
+        data = data.map(function(item) { 
+            // const obj = Object.assign({}, item);
+            const obj = { ...item };
+            obj['Distance'] = (item.Distance/1000).toFixed(2) + ' KM';
+            obj['Diseases'] = item.Diseases.join(', ');
+            obj['LastDonationDate'] = new Date(obj['LastDonationDate']).toLocaleDateString();
+            obj['RecoveryDate'] = new Date(obj['RecoveryDate']).toLocaleDateString();
+            return obj;
+        });
+        setDonorsDataArr(data);
       }, [props.donorsFound]);
-
+      
     //Data states
     const [donorsDataArr, setDonorsDataArr] = useState([]);
-    let i = 0;
 
     return (
             <Grid fluid>
-                {
-                    //Data Result here
-                }
                 {donorsDataArr.length > 0 && (
                     <>
                         <label className={style.mapNote}>Donors Data Found</label>
                         <Row>
                             <Col md={12}>
                                 <Card
-                                    title="Donors list"
-                                    // ctTableFullWidth
-                                    // ctTableResponsive
+                                    ctTableFullWidth
+                                    ctTableResponsive
                                     content={
-                                        <div className={style.tableResponsive}>
-                                        <Table className={style.tablePadding} size="sm" striped bordered hover>
-                                            <thead>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>Name</td>
-                                                    <td>Number</td>
-                                                    <td>Email</td>
-                                                    <td>Age</td>
-                                                    <td>Blood Type</td>
-                                                    <td>Last Donating Date</td>
-                                                    <td>Recovery Date</td>
-                                                    <td>Chronic Diseases</td>
-                                                    <td>Distance</td>
-                                                    <td>Address</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {donorsDataArr.map( key => {
-                                                    return (
-                                                        <tr>
-                                                            <td>{++i}</td>
-                                                            <td>{key.Name}</td>
-                                                            <td>{key.Phone}</td>
-                                                            <td>{key.Email}</td>
-                                                            <td>{key.Age}</td>
-                                                            <td>{key.BloodType}</td>
-                                                            <td>{key.LastDonationDate}</td>
-                                                            <td>{key.RecoveryDate}</td>
-                                                            <td>{key.Diseases}</td>
-                                                            <td>{(key.Distance/1000).toFixed(2)} KM</td>
-                                                            <td>{key.Address}</td>
-                                                        </tr>
-                                                    );
-                                                })}
-                                            </tbody>
-                                        </Table>
+                                        <div className={style.tablePadding}>
+                                            <Suspense fallback={<CircularProgress />}>
+                                            <DataTable
+                                                className={style.tableCss}
+                                                noHeader
+                                                striped
+                                                // responsive
+                                                highlightOnHover
+                                                pointerOnHover
+                                                columns={columns}
+                                                data={donorsDataArr}
+                                                customStyles={customStyles}
+                                                pagination={true}
+                                                defaultSortField={'Distance'}
+                                                // paginationServer={true}
+                                                // allowOverflow={true}
+                                            />
+                                            </Suspense>
                                         </div>
                                     }
                                 />
@@ -78,11 +156,13 @@ const DonorsData = (props) => {
                             <FormGroup controlId="Map2" bsSize="large">
                                 <label className={style.mapNote}>Donors Locations</label>
                                 <div className={style.Maps}>
+                                <Suspense fallback={<CircularProgress />}>
                                     <Maps
                                         id={2}
                                         zoom={10}
                                         donorsPositions={donorsDataArr}
                                     />
+                                </Suspense>
                                 </div>
                             </FormGroup>
                             </Col>

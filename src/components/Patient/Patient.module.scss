@@ -71,5 +71,14 @@
 }
 
 .tablePadding {
-    padding:30px;
+    padding-left:30px;
+    padding-right:30px;
+    padding-bottom:30px;
+    padding-top:-50px;
+}
+
+.tableCss {
+    border-style: solid;
+    border-width: 1px;
+    border-color:#8b8b8b;
 }
