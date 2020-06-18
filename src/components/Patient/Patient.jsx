@@ -149,7 +149,7 @@ export default function Patient() {
                                         <div className={style.Maps}>
                                             <Maps
                                                 id={1}
-                                                zoom={17}
+                                                zoom={16}
                                                 setLocation={setLocation}
                                                 location={location}
                                                 disableStreetside={true}

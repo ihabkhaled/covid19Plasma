@@ -159,7 +159,7 @@ const DonorsData = (props) => {
                                 <Suspense fallback={<CircularProgress />}>
                                     <Maps
                                         id={2}
-                                        zoom={10}
+                                        zoom={14}
                                         donorsPositions={donorsDataArr}
                                     />
                                 </Suspense>
