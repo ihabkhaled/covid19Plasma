@@ -12,7 +12,7 @@ const showNotification = (type,message = '') => {
     } else if (type == 'error') {
         return NotificationManager.error(
             'error',
-            'error',
+            message,
             3000
         );
     }

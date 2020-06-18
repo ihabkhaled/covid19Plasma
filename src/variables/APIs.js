@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 
 export const API = {
-    getData: (location,bloodType,range = 50000) => axiosInstance.post('http://localhost:8000/api/donor/getnearby', {
+    getData: (location,bloodType,range = 50000) => axiosInstance.post('https://env-4419716.lon.wafaicloud.com/api/donor/getnearby', {
         geolocation: location,
         bloodTypes:bloodType,
         rangeInMeters: range
@@ -17,7 +17,7 @@ export const API = {
         headers: { 'Content-Type': 'text/plain' }
     }),
     
-    setData: (name,location,phone,email,bloodType,donationDate,recoveryDate,age,diseases,address) => axiosInstance.post('http://localhost:8000/api/donor/add', {
+    setData: (name,location,phone,email,bloodType,donationDate,recoveryDate,age,diseases,address) => axiosInstance.post('https://env-4419716.lon.wafaicloud.com/api/donor/add', {
         "name": name,
         "geolocation": location,
         "phone": phone,

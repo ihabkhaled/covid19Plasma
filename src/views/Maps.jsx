@@ -6,27 +6,36 @@ import { ReactBingmaps } from 'react-bingmaps';
 const Maps = (props) => {
 
     useEffect(() => {
-      if (listener == false) {
-        setPosition([1, 1]);
-        setPosition([]);
-        if(props.location)
-        {
-            if (props.location.length > 0) {
-              props.setLocation(null);
-              setListener(true);
-              setTimeout(() => {
-                let myLocation = props.location.split(',');
-                let locaitonData = parseFloat(myLocation[0]) + ',' + parseFloat(myLocation[1]);
-                props.setLocation(locaitonData);
-                setPosition([parseFloat(myLocation[0]),parseFloat(myLocation[1])]);
-              },1000);
-          } else {
-          }
-        } else {
-        }
-      } else { 
-      }
+      // if (listener == false) {
+      //   setPosition([1, 1]);
+      //   setPosition([]);
+      //   if(props.location)
+      //   {
+      //       if (props.location.length > 0) {
+      //         props.setLocation(null);
+      //         setListener(true);
+      //         setTimeout(() => {
+      //           let myLocation = props.location.split(',');
+      //           let locaitonData = parseFloat(myLocation[0]) + ',' + parseFloat(myLocation[1]);
+      //           props.setLocation(locaitonData);
+      //           setPosition([parseFloat(myLocation[0]),parseFloat(myLocation[1])]);
+      //         },1000);
+      //     } else {
+      //     }
+      //   } else {
+      //   }
+      // } else { 
+      // }
     });
+
+    useEffect(() => {
+      if(props.location)
+      if (props.location.length > 0) {
+            let myLocation = props.location.split(',');
+            setPosition([parseFloat(myLocation[0]),parseFloat(myLocation[1])]);
+      } else {
+      }
+    },[props.location]);
 
   const [listener, setListener] = useState(false);
   const [position, setPosition] = useState([]);

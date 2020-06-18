@@ -11,6 +11,7 @@ import "../../assets/css/maps.css";
 import { API } from "../../variables/APIs.js";
 import showNotification from '../../variables/Notifications';
 import CircularProgress from '@material-ui/core/CircularProgress';
+const isMobile = window.isMobile().mobile();
 
 export default function Patient() {
 
@@ -69,9 +70,26 @@ export default function Patient() {
         submitFormData();
     }
 
+    const getMyLocationHandler = () => {
+        if(isMobile)
+        {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
+                },
+                function(error){
+                    alert(error.message);
+                }, {
+                    enableHighAccuracy: true, timeout : 5000
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    }
+
     const submitFormData = async () => {
         try {
-            console.log(location)
             let locationData = location.split(",");
             let checkItems = [];
             for (const theItem in bloodType) {
@@ -83,20 +101,29 @@ export default function Patient() {
         
             if(response.data)
             {
-                if(response.data.State == "Success" && response.data.Donors.length > 0) {
-                    showNotification('success','Data Found!');
-                        setDonorsFound(response.data.Donors);
+                if(response.data.State == "Success") {
+                    if(response.data.Donors.length > 0)
+                    {
+                        showNotification('success','Data found!');
+                        setTimeout(() => {
+                            setDonorsFound(response.data.Donors)
+                        }, 500);
+                    } else {
+                        showNotification('error','No data found!');
+                        setDonorsFound([]);
+                    }
                 } else {
-                    showNotification('error','error!');
+                    showNotification('error','Error');
                     setDonorsFound([]);
                 }
             } else {
-                showNotification('error','error!');
+                showNotification('error','Error');
                 setDonorsFound([]);
             }
             
         } catch (error) {
-            showNotification('error','error!');
+            alert(error);
+            // showNotification('error',error);
             setDonorsFound([]);
             console.log(error);
         }
@@ -112,13 +139,17 @@ export default function Patient() {
                             title="Search for a donor"
                             content={
                                 <form onSubmit={handleSubmit}>
-
+                                    {isMobile && (
+                                        <Button onClick={getMyLocationHandler} bsStyle="info" pullLeft fill>
+                                                Get Location
+                                        </Button>
+                                    )}
                                     <FormGroup className={style.Cursor} controlId="Map" bsSize="large">
                                         <label className={style.mapNote}>Select your location on map</label> <span className={style.require}>*</span>
                                         <div className={style.Maps}>
                                             <Maps
                                                 id={1}
-                                                zoom={16}
+                                                zoom={17}
                                                 setLocation={setLocation}
                                                 location={location}
                                                 disableStreetside={true}
