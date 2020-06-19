@@ -61,7 +61,8 @@ export default function Donor() {
   const chronicDiseases = [
     'Blood Pressure',
     'Diabetes',
-    'Cardiac Disease',
+    'Cardiac Disease'
+    //,
     // 'Virus C',
     // 'Virus B',
     // 'AIDS'
@@ -166,7 +167,7 @@ export default function Donor() {
           setAddress("");
           setMobile("");
           setEmail("");
-          setLocation([0,0]);
+          setLocation("");
           setAge("");
           setDonationDate("");
           setRecoveryDate("");
