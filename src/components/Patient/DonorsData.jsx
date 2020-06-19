@@ -5,98 +5,106 @@ import { Card } from "components/Card/Card.jsx";
 import Maps from "../../views/Maps";
 import style from "./Patient.module.scss";
 import "../../assets/css/maps.css";
-import DataTable from 'react-data-table-component';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import MaterialTable from 'material-table';
+import Button from "components/CustomButton/CustomButton.jsx";
 
 const columns = [
     {
-        name: 'Name',
-        selector: 'Name',
-        sortable: true,
-        wrap: true,
-        width:'250px'
+        title: 'Name',
+        field: 'Name',
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF',
+            border: 'solid 1px #FFF'
+        }
     },
     {
-        name: 'Phone',
-        selector: 'Phone',
-        sortable: true,
-        wrap: true,
-        grow:2
+        title: 'Phone',
+        field: 'Phone',
+        render: rowData => <a href={'tel:' + rowData.Phone}>{rowData.Phone}</a>,
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        }
     },
     {
-        name: 'Email',
-        selector: 'Email',
-        sortable: true,
-        wrap: true,
-        width:'250px'
+        title: 'Email',
+        field: 'Email',
+        render: rowData => <a href={'mailto:' + rowData.Email}>{rowData.Email}</a>,
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        }
     },
     {
-        name: 'Age',
-        selector: 'Age',
-        sortable: true,
-        wrap: true
+        title: 'Age',
+        field: 'Age',
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        }
     },
     {
-        name: 'Blood Type',
-        selector: 'BloodType',
-        sortable: true,
-        wrap: true
+        title: 'Blood Type',
+        field: 'BloodType',
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        }
     },
     {
-        name: 'Last Donating Date',
-        selector: 'LastDonationDate',
-        sortable: true,
-        wrap: true,
-        width:'150px'
+        title: 'Last Donating Date',
+        field: 'LastDonationDate',
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        }
     },
     {
-        name: 'Recovery Date',
-        selector: 'RecoveryDate',
-        sortable: true,
-        wrap: true,
-        width:'150px'
+        title: 'Recovery Date',
+        field: 'RecoveryDate',
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        }
     },
     {
-        name: 'Chronic Diseases',
-        selector: 'Diseases',
-        sortable: true,
-        wrap: true,
-        width:'250px'
+        title: 'Chronic Diseases',
+        field: 'Diseases',
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        }
     },
     {
-        name: 'Distance',
-        selector: 'Distance',
-        sortable: true,
-        wrap: true
+        title: 'Distance',
+        field: 'Distance',
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        },
+        defaultGroupSort:'asc'
     },
     {
-        name: 'Address',
-        selector: 'Address',
-        sortable: true,
-        wrap: true,
-        width:'250px'
+        title: 'Address',
+        field: 'Address',
+        headerStyle: {
+            backgroundColor: '#039be5',
+            color: '#FFF',
+            border: 'solid 1px #FFF'
+        }
     },
 ];
-
-const customStyles = {
-    headCells: {
-      style: {
-        fontWeight:'bold',
-        backgroundColor: "#122861",
-        color:'#FFFFFF',
-        borderStyle:'solid',
-        borderWidth:'1px',
-        borderColor:'#8b8b8b'
-      },
-    },
-    cells: {
-        style: {
-            borderStyle:'solid',
-            borderWidth:'1px',
-            borderColor:'#8b8b8b'
-        },
-    }
-  };
 
 const DonorsData = (props) => {
 
@@ -116,36 +124,37 @@ const DonorsData = (props) => {
       
     //Data states
     const [donorsDataArr, setDonorsDataArr] = useState([]);
+    const [loadMap, setLoadMap] = useState(false);
+
+    const showMap = () => {
+        setLoadMap(true);
+    };
 
     return (
-            <Grid fluid>
+            <Grid fluid className="fontSize">
                 {donorsDataArr.length > 0 && (
                     <>
                         <label className={style.mapNote}>Donors Data Found</label>
                         <Row>
-                            <Col md={12}>
+                            <Col lg={12}>
                                 <Card
                                     ctTableFullWidth
                                     ctTableResponsive
                                     content={
                                         <div className={style.tablePadding}>
-                                            <Suspense fallback={<CircularProgress />}>
-                                            <DataTable
-                                                className={style.tableCss}
-                                                noHeader
-                                                striped
-                                                // responsive
-                                                highlightOnHover
-                                                pointerOnHover
+                                            <MaterialTable
+                                                title="Donor's Data"
                                                 columns={columns}
                                                 data={donorsDataArr}
-                                                customStyles={customStyles}
-                                                pagination={true}
-                                                defaultSortField={'Distance'}
-                                                // paginationServer={true}
-                                                // allowOverflow={true}
+                                                options={{
+                                                    exportButton: true
+                                                }}
+                                                OverlayLoading
+                                                style={{fontSize: '50px'}}
+                                                pagination={{
+                                                    labelRowsSelect:'10'
+                                                }}
                                             />
-                                            </Suspense>
                                         </div>
                                     }
                                 />
@@ -153,18 +162,23 @@ const DonorsData = (props) => {
                         </Row>
                         <Row>
                             <Col md={12}>
-                            <FormGroup controlId="Map2" bsSize="large">
-                                <label className={style.mapNote}>Donors Locations</label>
-                                <div className={style.Maps}>
-                                <Suspense fallback={<CircularProgress />}>
-                                    <Maps
-                                        id={2}
-                                        zoom={14}
-                                        donorsPositions={donorsDataArr}
-                                    />
-                                </Suspense>
-                                </div>
-                            </FormGroup>
+                            <Button onClick={showMap} bsStyle="info" pullLeft fill>
+                                    Load Donors Map
+                            </Button>
+                            {loadMap == true && (
+                                <FormGroup controlId="Map2" bsSize="large">
+                                    <label className={style.mapNote}>Donors Locations</label>
+                                    <div className={style.Maps}>
+                                    <Suspense fallback={<CircularProgress />}>
+                                        <Maps
+                                            id={2}
+                                            zoom={10}
+                                            donorsPositions={donorsDataArr}
+                                        />
+                                    </Suspense>
+                                    </div>
+                                </FormGroup>
+                            )}
                             </Col>
                         </Row>
                     </>

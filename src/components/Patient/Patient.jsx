@@ -106,6 +106,7 @@ export default function Patient() {
                     {
                         showNotification('success','Data found!');
                         setTimeout(() => {
+                            // response.data.Donors = response.data.Donors.slice(0, 100);
                             setDonorsFound(response.data.Donors)
                         }, 500);
                     } else {
@@ -136,7 +137,7 @@ export default function Patient() {
                 <Row>
                     <Col md={12}>
                         <Card className={style.label}
-                            title="Search for a donor"
+                            // title="Search for a donor"
                             content={
                                 <form onSubmit={handleSubmit}>
                                     {isMobile && (

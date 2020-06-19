@@ -30,10 +30,15 @@ const Maps = (props) => {
 
     useEffect(() => {
       if(props.location)
-      if (props.location.length > 0) {
-            let myLocation = props.location.split(',');
-            setPosition([parseFloat(myLocation[0]),parseFloat(myLocation[1])]);
+      {
+        if (props.location.length > 0) {
+              let myLocation = props.location.split(',');
+              setPosition([parseFloat(myLocation[0]),parseFloat(myLocation[1])]);
+        } else {
+          setPosition([0,0]);
+        }
       } else {
+        setPosition([0,0]);
       }
     },[props.location]);
 
@@ -63,34 +68,30 @@ const Maps = (props) => {
                 )
             }
             zoom={props.zoom}
-            pushPins={
-              props.id == 1 &&
-                (
-                  [
-                    {
-                      "location": position, "option": { color: 'red' }
-                    }
-                  ]
-                )
-            }
-            infoboxes={
-              props.id == 1 && (
-                [
-                  {
-                    "location": position, "option": { title: 'My Location' }
-                  }
-                ]
-              )
-            }
             infoboxesWithPushPins = {
-              props.id == 2 && (
-                props.donorsPositions.map(val => (
-                  {
-                    "location":val.GeoLocation, 
-                    "infoboxOption": { title: 'Donor: ' + val.Name, description: 'Blood Type: ' + val.BloodType },
-                    "pushPinOption":{ title: val.Distance }
-                  }
-                ))
+              props.id == 1 ? (
+                props.location && props.location.length > 0 && 
+                  (
+                    [
+                      {
+                        "location":position, 
+                        "addHandler":"mouseover",
+                        "infoboxOption": { title: 'My Location', description: 'Location ' + position },
+                        "pushPinOption":{ title: 'My Location' }
+                      }
+                    ]
+                )
+              ) : (
+                props.id == 2 && (
+                  props.donorsPositions.map(val => (
+                    {
+                      "location":val.GeoLocation, 
+                      "addHandler":"mouseover",
+                      "infoboxOption": { title: 'Donor: ' + val.Name, description: 'Phone: ' + val.Phone + ' &nbsp;&nbsp; Blood Type: ' + val.BloodType },
+                      "pushPinOption":{ title: val.Distance }
+                    }
+                  ))
+                )
               )
             }
           >

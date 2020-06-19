@@ -18,6 +18,7 @@ import style from "./DonorForm.module.scss";
 import "../../assets/css/maps.css";
 import { API } from "../../variables/APIs.js";
 import showNotification from '../../variables/Notifications';
+import { useHistory } from 'react-router-dom';
 
 export default function Donor() {
 
@@ -25,6 +26,7 @@ export default function Donor() {
     setOpen(true);
   }, []);
 
+  const history = useHistory();
 
   //Data states
   const [name, setName] = useState("");
@@ -73,6 +75,7 @@ export default function Donor() {
   }
 
   const handleDisagree = () => {
+    history.push("/");
     setOpen(false);
     setAgree(false);
   };
@@ -172,7 +175,7 @@ export default function Donor() {
               <Row>
                 <Col md={12}>
                   <Card className={style.label}
-                    title="Donor"
+                    title="Please fill the below data"
                     content={
                       <form onSubmit={handleSubmit}>
                         <Row>
