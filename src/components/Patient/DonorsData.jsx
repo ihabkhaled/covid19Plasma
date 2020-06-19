@@ -96,7 +96,7 @@ const columns = [
         defaultGroupSort:'asc'
     },
     {
-        title: 'Address',
+        title: 'Area',
         field: 'Address',
         headerStyle: {
             backgroundColor: '#039be5',
@@ -124,11 +124,11 @@ const DonorsData = (props) => {
       
     //Data states
     const [donorsDataArr, setDonorsDataArr] = useState([]);
-    const [loadMap, setLoadMap] = useState(false);
+    // const [loadMap, setLoadMap] = useState(false);
 
-    const showMap = () => {
-        setLoadMap(true);
-    };
+    // const showMap = () => {
+    //     setLoadMap(true);
+    // };
 
     return (
             <Grid fluid className="fontSize">
@@ -141,7 +141,6 @@ const DonorsData = (props) => {
                                     ctTableFullWidth
                                     ctTableResponsive
                                     content={
-                                        <div className={style.tablePadding}>
                                             <MaterialTable
                                                 title="Donor's Data"
                                                 columns={columns}
@@ -155,12 +154,11 @@ const DonorsData = (props) => {
                                                     labelRowsSelect:'10'
                                                 }}
                                             />
-                                        </div>
                                     }
                                 />
                             </Col>
                         </Row>
-                        <Row>
+                        {/* <Row>
                             <Col md={12}>
                             <Button onClick={showMap} bsStyle="info" pullLeft fill>
                                     Load Donors Map
@@ -180,7 +178,7 @@ const DonorsData = (props) => {
                                 </FormGroup>
                             )}
                             </Col>
-                        </Row>
+                        </Row> */}
                     </>
                 )}
             </Grid>

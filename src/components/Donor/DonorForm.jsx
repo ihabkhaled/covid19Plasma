@@ -27,6 +27,7 @@ export default function Donor() {
   }, []);
 
   const history = useHistory();
+  const isMobile = window.isMobile().mobile();
 
   //Data states
   const [name, setName] = useState("");
@@ -39,6 +40,7 @@ export default function Donor() {
   const [recoveryDate, setRecoveryDate] = useState("");
   const [bloodType, setBloodType] = useState("");
   const [checkedItems, setCheckedItems] = useState({});
+  const [centreMap, setCentreMap] = useState('');
 
   //Modals
   const [open, setOpen] = useState(false);
@@ -60,10 +62,54 @@ export default function Donor() {
     'Blood Pressure',
     'Diabetes',
     'Cardiac Disease',
-    'Virus C',
-    'Virus B',
-    'AIDS'
+    // 'Virus C',
+    // 'Virus B',
+    // 'AIDS'
   ];
+
+  const getMyLocationAuto = () => {
+    setTimeout(() => {
+      const isMobile = window.isMobile().mobile();
+      if(isMobile)
+      {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition((position) => {
+                  setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
+                  setCentreMap(1);
+              },
+              function(error){
+                  alert(error.message);
+              }, {
+                  enableHighAccuracy: true, timeout : 5000
+              }
+              );
+          } else {
+              alert("Geolocation is not supported by this browser.");
+          }
+      }
+    },1200);
+  };
+
+  const getMyLocationHandler = () => {
+    const isMobile = window.isMobile().mobile();
+      if(isMobile)
+      {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition((position) => {
+                  setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
+                  setCentreMap(1);
+              },
+              function(error){
+                  alert(error.message);
+              }, {
+                  enableHighAccuracy: true, timeout : 5000
+              }
+              );
+          } else {
+              alert("Geolocation is not supported by this browser.");
+          }
+      }
+  };
 
   const handleRadio = event => {
     const target = event.target;
@@ -83,6 +129,7 @@ export default function Donor() {
   const handleAgree = () => {
     setOpen(false);
     setAgree(true);
+    getMyLocationAuto();
   };
 
   //Validations here
@@ -119,7 +166,7 @@ export default function Donor() {
           setAddress("");
           setMobile("");
           setEmail("");
-          setLocation("");
+          setLocation([0,0]);
           setAge("");
           setDonationDate("");
           setRecoveryDate("");
@@ -175,13 +222,13 @@ export default function Donor() {
               <Row>
                 <Col md={12}>
                   <Card className={style.label}
-                    title="Please fill the below data"
+                    title="Please fill the below data/بالرجاء ملئ البيانات بدقة"
                     content={
                       <form onSubmit={handleSubmit}>
                         <Row>
                           <Col md={6}>
                             <FormGroup controlId="name" bsSize="large">
-                              <ControlLabel className={style.label}>Full Name <span className={style.require}>*</span> </ControlLabel>
+                              <ControlLabel className={style.label}>Full Name/الإسم <span className={style.require}>*</span> </ControlLabel>
                               <FormControl
                                 autoFocus
                                 type="text"
@@ -189,14 +236,14 @@ export default function Donor() {
                                 name="Name"
                                 onChange={e => setName(e.target.value)}
                                 placeholder="Enter your fullname"
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
 
                           <Col md={6}>
                             <FormGroup controlId="email" bsSize="large">
-                              <ControlLabel className={style.label}>Email <span className={style.require}>*</span></ControlLabel>
+                              <ControlLabel className={style.label}>Email/البريد الإلكتروني <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 autoFocus
                                 type="email"
@@ -204,7 +251,7 @@ export default function Donor() {
                                 name="email"
                                 onChange={e => setEmail(e.target.value)}
                                 placeholder="Enter your Email"
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
@@ -213,49 +260,49 @@ export default function Donor() {
                         <Row>
                           <Col md={6}>
                             <FormGroup controlId="text" bsSize="large">
-                              <ControlLabel className={style.label}>Mobile <span className={style.require}>*</span></ControlLabel>
+                              <ControlLabel className={style.label}>Mobile/المحمول <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 value={mobile}
                                 onChange={e => setMobile(e.target.value)}
                                 type="text"
                                 name="mobile"
                                 placeholder="Enter your Mobile number"
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
 
                           <Col md={6}>
                             <FormGroup controlId="text" bsSize="large">
-                              <ControlLabel className={style.label}>Age <span className={style.require}>*</span></ControlLabel>
+                              <ControlLabel className={style.label}>Age/السن <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 value={age}
                                 onChange={e => setAge(e.target.value)}
                                 type="number"
                                 name="age"
                                 placeholder="Enter your age"
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
                         </Row>
 
-                        <FormGroup controlId="address" bsSize="large">
-                          <ControlLabel className={style.label}>Address</ControlLabel>
+                        <FormGroup controlId="area" bsSize="large">
+                          <ControlLabel className={style.label}>Area/منطقة</ControlLabel>
                           <FormControl
                             autoFocus
-                            type="address"
+                            type="text"
                             value={address}
-                            name="address"
+                            name="area"
                             onChange={e => setAddress(e.target.value)}
-                            placeholder="Enter your address"
+                            placeholder="Enter your area"
                           />
                         </FormGroup>
 
                         <Row>
                           <Col md={6}>
                             <FormGroup controlId="donationDate" bsSize="large">
-                              <ControlLabel className={style.label}>Last donation date <span className={style.require}>*</span></ControlLabel>
+                              <ControlLabel className={style.label}>Last donation date/تاريخ أخر تبرع بالدم <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 autoFocus
                                 type="date"
@@ -264,14 +311,14 @@ export default function Donor() {
                                 data-date-format="dd/mm/yyyy"
                                 format="dd/mm/yyyy"
                                 onChange={e => setDonationDate(e.target.value)}
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
 
                           <Col md={6}>
                             <FormGroup controlId="recoveryDate" bsSize="large">
-                              <ControlLabel className={style.label}>Recovery date <span className={style.require}>*</span></ControlLabel>
+                              <ControlLabel className={style.label}>Recovery date/تاريخ الشفاء <span className={style.require}>*</span></ControlLabel>
                               <FormControl
                                 autoFocus
                                 type="date"
@@ -280,14 +327,14 @@ export default function Donor() {
                                 data-date-format="dd/mm/yyyy"
                                 format="dd/mm/yyyy"
                                 onChange={e => setRecoveryDate(e.target.value)}
-                                //required
+                                required
                               />
                             </FormGroup>
                           </Col>
                         </Row>
 
                         <FormGroup className={style.radioButtons} controlId="text" bsSize="large">
-                          <ControlLabel className={style.label}>Blood Type <span className={style.require}>*</span></ControlLabel>
+                          <ControlLabel className={style.label}>Blood Type/فصيلة الدم <span className={style.require}>*</span></ControlLabel>
                           {bloodTypes.map((val) => {
                             return (
                               <Radio
@@ -298,14 +345,14 @@ export default function Donor() {
                                 onChange={handleRadio}
                                 label={val}
                                 checked={bloodType === val}
-                                //required
+                                required
                               />
                             );
                           })}
                         </FormGroup>
 
                         <FormGroup className={style.radioButtons} controlId="text" bsSize="large">
-                          <ControlLabel className={style.label}>Chronic Diseases</ControlLabel>
+                          <ControlLabel className={style.label}>Chronic Diseases/أمراض مزمنة</ControlLabel>
                           {chronicDiseases.map((val) => {
                             return (
                               <Checkbox
@@ -321,7 +368,12 @@ export default function Donor() {
                         </FormGroup>
 
                         <FormGroup className={style.Cursor} controlId="Map" bsSize="large">
-                          <label className={style.mapNote}>Select your location on map</label> <span className={style.require}>*</span>
+                          {isMobile && (
+                              <Button onClick={getMyLocationHandler} bsStyle="info" pullLeft fill>
+                                      Get Location
+                              </Button>
+                          )}
+                          <label className={style.mapNote}>Select your location on map/إختر موقعك الجغرافي علي الخريطة</label> <span className={style.require}>*</span>
                           <div className={style.Maps}>
                             <Maps
                               id={1}
@@ -329,18 +381,20 @@ export default function Donor() {
                               setLocation={setLocation}
                               disableStreetside={true}
                               location={location}
+                              centreMap={centreMap}
+                              setCentreMap={setCentreMap}
                             />
                           </div>
                         </FormGroup>
 
                         <FormGroup controlId="location" bsSize="large">
-                          <ControlLabel className={style.label}>Location <span className={style.require}>*</span></ControlLabel>
+                          <ControlLabel className={style.label}>Location/الموقع الجغرافي <span className={style.require}>*</span></ControlLabel>
                           <FormControl
                             disabled
                             autoFocus
                             type="location"
                             value={location}
-                            //required
+                            required
                             placeholder="Select your location on the map"
                           />
                         </FormGroup>

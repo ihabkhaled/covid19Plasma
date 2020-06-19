@@ -23,6 +23,7 @@ export default function Patient() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition((position) => {
                         setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
+                        setCentreMap(1);
                     },
                     function(error){
                         alert(error.message);
@@ -43,6 +44,7 @@ export default function Patient() {
     const [location, setLocation] = useState("");
     const [donorsFound, setDonorsFound] = useState([]);
     const [bloodType, setBloodType] = useState({});
+    const [centreMap, setCentreMap] = useState('');
 
     const bloodTypes = [
         'O-',
@@ -146,7 +148,7 @@ export default function Patient() {
                                         </Button>
                                     )}
                                     <FormGroup className={style.Cursor} controlId="Map" bsSize="large">
-                                        <label className={style.mapNote}>Select your location on map</label> <span className={style.require}>*</span>
+                                        <label className={style.mapNote}>Select your location on map/إختر موقعك الجغرافي علي الخريطة</label> <span className={style.require}>*</span>
                                         <div className={style.Maps}>
                                             <Maps
                                                 id={1}
@@ -154,12 +156,14 @@ export default function Patient() {
                                                 setLocation={setLocation}
                                                 location={location}
                                                 disableStreetside={true}
+                                                centreMap={centreMap}
+                                                setCentreMap={setCentreMap}
                                             />
                                         </div>
                                     </FormGroup>
 
                                     <FormGroup controlId="location" bsSize="large">
-                                        <ControlLabel className={style.label}>Location <span className={style.require}>*</span></ControlLabel>
+                                        <ControlLabel className={style.label}>Location/الموقع الجغرافي <span className={style.require}>*</span></ControlLabel>
                                         <FormControl
                                             disabled
                                             autoFocus
@@ -171,7 +175,7 @@ export default function Patient() {
                                     </FormGroup>
 
                                     <FormGroup className={style.radioButtons} controlId="text" bsSize="large">
-                                        <ControlLabel className={style.label}>Select Blood Type <span className={style.require}>*</span></ControlLabel>
+                                        <ControlLabel className={style.label}>Select Blood Type/إختر فصيلة الدم <span className={style.require}>*</span></ControlLabel>
                                         {bloodTypes.map((val) => {
                                             return (
                                                 <Checkbox

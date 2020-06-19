@@ -29,6 +29,10 @@ const Maps = (props) => {
     });
 
     useEffect(() => {
+
+    },[props.centreMap]);
+
+    useEffect(() => {
       if(props.location)
       {
         if (props.location.length > 0) {
@@ -46,6 +50,7 @@ const Maps = (props) => {
   const [position, setPosition] = useState([]);
 
   const getLocation = (data) => {
+    props.setCentreMap(null);
     let locaitonData = data.latitude + ',' + data.longitude;
     props.setLocation(locaitonData);
     setPosition([data.latitude, data.longitude]);
@@ -58,7 +63,12 @@ const Maps = (props) => {
           <ReactBingmaps
             id={props.id}
             bingmapKey="AqgmKUtfTPyfrncmMyD181gzU-0LlgISmXL1noS97GScNCtI3Ws8V38oHrt7uN4m"
-            center={position}
+            center={
+              props.centreMap ? (
+                  position
+              ) : (
+                [0,0]
+              )}
             mapTypeId={"road"}
             getLocation={
               props.id == 1 ? (
