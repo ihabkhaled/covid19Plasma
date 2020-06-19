@@ -22,6 +22,7 @@ export default function Patient() {
             {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition((position) => {
+                        setLocation(0,0);
                         setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
                         setCentreMap(1);
                     },
@@ -35,7 +36,7 @@ export default function Patient() {
                     alert("Geolocation is not supported by this browser.");
                 }
             }
-        },1200);
+        },1500);
       }, []);
 
     const DonorsData = React.lazy(() => import('./DonorsData.jsx'));
@@ -77,7 +78,9 @@ export default function Patient() {
         {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
+                    setLocation(0,0);
                     setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
+                    setCentreMap(1);
                 },
                 function(error){
                     alert(error.message);

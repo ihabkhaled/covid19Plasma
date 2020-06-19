@@ -80,7 +80,7 @@ const Maps = (props) => {
             zoom={props.zoom}
             infoboxesWithPushPins = {
               props.id == 1 ? (
-                props.location && props.location.length > 0 && 
+                props.location && props.location.length > 0 ?
                   (
                     [
                       {
@@ -90,6 +90,8 @@ const Maps = (props) => {
                         "pushPinOption":{ title: 'My Location' }
                       }
                     ]
+                ) : (
+                  [ { } ]
                 )
               ) : (
                 props.id == 2 && (

@@ -62,10 +62,6 @@ export default function Donor() {
     'Blood Pressure',
     'Diabetes',
     'Cardiac Disease'
-    //,
-    // 'Virus C',
-    // 'Virus B',
-    // 'AIDS'
   ];
 
   const getMyLocationAuto = () => {
@@ -75,6 +71,7 @@ export default function Donor() {
       {
           if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition((position) => {
+                setLocation(0,0);
                   setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
                   setCentreMap(1);
               },
@@ -88,7 +85,7 @@ export default function Donor() {
               alert("Geolocation is not supported by this browser.");
           }
       }
-    },1200);
+    },1500);
   };
 
   const getMyLocationHandler = () => {
@@ -97,6 +94,7 @@ export default function Donor() {
       {
           if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition((position) => {
+                setLocation(0,0);
                   setLocation(position.coords.latitude  + ',' +  position.coords.longitude);
                   setCentreMap(1);
               },
@@ -173,6 +171,7 @@ export default function Donor() {
           setRecoveryDate("");
           setBloodType("");
           setCheckedItems({});
+          setLocation(0,0);
         } else {
           showNotification('error','error!');
         }
