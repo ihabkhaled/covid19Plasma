@@ -8,6 +8,7 @@ import "../../assets/css/maps.css";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MaterialTable from 'material-table';
 import Button from "components/CustomButton/CustomButton.jsx";
+// import DialogCustom from "../Dialog/Dialog";
 
 const columns = [
     {
@@ -110,24 +111,32 @@ const DonorsData = (props) => {
 
     useEffect(() => {
         let data = props.donorsFound;
+        // let locations = [];
         data = data.map(function(item) { 
             // const obj = Object.assign({}, item);
             const obj = { ...item };
+            // locations.push({latitude:obj['GeoLocation'][0], longitude:obj['GeoLocation'][1]});
             obj['Distance'] = (item.Distance/1000).toFixed(2) + ' KM';
             obj['Diseases'] = item.Diseases.join(', ');
             obj['LastDonationDate'] = new Date(obj['LastDonationDate']).toLocaleDateString();
             obj['RecoveryDate'] = new Date(obj['RecoveryDate']).toLocaleDateString();
             return obj;
         });
+        // setTheLocations(locations);
         setDonorsDataArr(data);
       }, [props.donorsFound]);
       
     //Data states
     const [donorsDataArr, setDonorsDataArr] = useState([]);
-    // const [loadMap, setLoadMap] = useState(false);
+    // const [ theLocations, setTheLocations] = useState([]);
+    // const [ heatMap, setHeatMap] = useState(false);
 
     // const showMap = () => {
     //     setLoadMap(true);
+    // };
+
+    // const showHeatMap = () => {
+    //     setHeatMap(true);
     // };
 
     return (
@@ -137,6 +146,18 @@ const DonorsData = (props) => {
                         <label className={style.mapNote}>Donors Data Found</label>
                         <Row>
                             <Col lg={12}>
+                                {/* <Button onClick={showHeatMap} bsStyle="info" pullLeft fill>
+                                    Heat Map
+                                </Button> */}
+
+                                {/* <DialogCustom
+                                    open={heatMap}
+                                    title={'Title'}
+                                    locations={theLocations}
+                                    setHeatMap={setHeatMap}
+                                /> */}
+
+                                <br></br>
                                 <Card
                                     ctTableFullWidth
                                     ctTableResponsive

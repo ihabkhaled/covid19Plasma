@@ -50,10 +50,13 @@ const Maps = (props) => {
   const [position, setPosition] = useState([]);
 
   const getLocation = (data) => {
-    props.setCentreMap(null);
-    let locaitonData = data.latitude + ',' + data.longitude;
-    props.setLocation(locaitonData);
-    setPosition([data.latitude, data.longitude]);
+    if(data)
+    {
+      props.setCentreMap(null);
+      let locaitonData = data.latitude + ',' + data.longitude;
+      props.setLocation(locaitonData);
+      setPosition([data.latitude, data.longitude]);
+    }
   }
 
   return (
