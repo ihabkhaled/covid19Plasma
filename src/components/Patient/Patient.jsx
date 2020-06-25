@@ -71,6 +71,7 @@ export default function Patient() {
 
     const handleSubmit = (event) => {
         setSubmitting(true);
+        setDonorsFound([]);
         event.preventDefault();
         submitFormData();
     }
@@ -128,7 +129,9 @@ export default function Patient() {
                 showNotification('error','Error');
                 setDonorsFound([]);
             }
-            setSubmitting(false);
+            setTimeout(() => {
+                setSubmitting(false);
+            }, 600);
         } catch (error) {
             showNotification('error','Error!');
             setSubmitting(false);
