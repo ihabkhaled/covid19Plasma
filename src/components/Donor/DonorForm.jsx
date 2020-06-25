@@ -41,6 +41,7 @@ export default function Donor() {
   const [bloodType, setBloodType] = useState("");
   const [checkedItems, setCheckedItems] = useState({});
   const [centreMap, setCentreMap] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   //Modals
   const [open, setOpen] = useState(false);
@@ -138,6 +139,7 @@ export default function Donor() {
   }
 
   const handleSubmit = (event) => {
+    setSubmitting(true);
     event.preventDefault();
     submitFormData();
   }
@@ -172,6 +174,7 @@ export default function Donor() {
           setBloodType("");
           setCheckedItems({});
           setLocation(0,0);
+          setSubmitting(false);
         } else {
           showNotification('error','error!');
         }
@@ -398,7 +401,7 @@ export default function Donor() {
                             placeholder="Select your location on the map"
                           />
                         </FormGroup>
-                        <Button bsStyle="info" pullRight fill disabled={!validateForm()} type="submit">
+                        <Button bsStyle="info" pullRight fill disabled={!validateForm()} disabled={submitting} type="submit">
                           Submit
                       </Button>
                         <div className="clearfix" />

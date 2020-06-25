@@ -46,6 +46,7 @@ export default function Patient() {
     const [donorsFound, setDonorsFound] = useState([]);
     const [bloodType, setBloodType] = useState({});
     const [centreMap, setCentreMap] = useState('');
+    const [submitting, setSubmitting] = useState(false);
 
     const bloodTypes = [
         'O-',
@@ -69,6 +70,7 @@ export default function Patient() {
     }
 
     const handleSubmit = (event) => {
+        setSubmitting(true);
         event.preventDefault();
         submitFormData();
     }
@@ -112,7 +114,8 @@ export default function Patient() {
                         showNotification('success','Data found!');
                         setTimeout(() => {
                             // response.data.Donors = response.data.Donors.slice(0, 100);
-                            setDonorsFound(response.data.Donors)
+                            setDonorsFound(response.data.Donors);
+                            setSubmitting(false);
                         }, 500);
                     } else {
                         showNotification('error','No data found!');
@@ -193,7 +196,7 @@ export default function Patient() {
                                         })}
                                     </FormGroup>
 
-                                    <Button bsStyle="info" pullRight fill disabled={!validateForm()} type="submit">
+                                    <Button bsStyle="info" pullRight fill disabled={!validateForm()} disabled={submitting} type="submit">
                                         Submit
                                     </Button>
                                     <div className="clearfix" />
