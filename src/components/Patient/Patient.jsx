@@ -115,7 +115,6 @@ export default function Patient() {
                         setTimeout(() => {
                             // response.data.Donors = response.data.Donors.slice(0, 100);
                             setDonorsFound(response.data.Donors);
-                            setSubmitting(false);
                         }, 500);
                     } else {
                         showNotification('error','No data found!');
@@ -129,10 +128,10 @@ export default function Patient() {
                 showNotification('error','Error');
                 setDonorsFound([]);
             }
-            
+            setSubmitting(false);
         } catch (error) {
-            alert(error);
-            // showNotification('error',error);
+            showNotification('error','Error!');
+            setSubmitting(false);
             setDonorsFound([]);
             console.log(error);
         }

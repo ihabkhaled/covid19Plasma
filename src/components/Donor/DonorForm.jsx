@@ -174,13 +174,14 @@ export default function Donor() {
           setBloodType("");
           setCheckedItems({});
           setLocation(0,0);
-          setSubmitting(false);
         } else {
           showNotification('error','error!');
         }
       }
+      setSubmitting(false);
     } catch (error) {
       showNotification('error','error!');
+      setSubmitting(false);
       console.log(error);
     }
   };
